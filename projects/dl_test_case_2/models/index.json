@@ -1,1 +1,0 @@
-{"nameToIndex":{"split_1st_concat_last_group":{},"concat_1st_split_last_group":{},"split_1st_concat_last_sharedgroup":{},"split_inside_group":{},"split_1st_BiRnn_last_group":{},"BiRnn_1st_Concat_last_group":{},"highway_networks":{},"2_optmizer_same_subgraph":{},"2_optimizers_diff_subgraph":{},"optimizer_zero_lr":{},"test":{}}}
