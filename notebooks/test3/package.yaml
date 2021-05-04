@@ -1,0 +1,58 @@
+bundle_name: test3
+description: null
+version: 0.0.1
+image: null
+libraries: null
+system_dependencies: null
+environment: null
+commands: null
+blocks:
+- name: Dataset test 2
+  file_name: a
+  class_name: Dataset_Block
+  label: Dataset test 2
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: input_numbers
+    dataFlowType: atomic
+    dataType: array
+    render_type: null
+    default:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 5
+    doc: null
+    label: null
+  - name: a
+    dataFlowType: atomic
+    dataType: integer
+    render_type: null
+    default: 0
+    doc: null
+    label: null
+  outputs:
+  - name: result
+    dataFlowType: atomic
+    dataType: integer
+    doc: null
+    label: Result
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: test3
+category: Batman
