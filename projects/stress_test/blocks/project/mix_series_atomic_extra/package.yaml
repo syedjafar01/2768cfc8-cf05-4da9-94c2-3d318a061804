@@ -1,0 +1,92 @@
+bundle_name: mix_series_atomic_extra
+description: null
+version: 0.0.1
+image: null
+libraries: null
+system_dependencies: null
+environment: null
+commands: null
+blocks:
+- name: STDOut
+  file_name: extra
+  class_name: STDOut
+  label: STDOut
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: in_array
+    dataFlowType: atomic
+    dataType: ndarray
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: out_file
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs: []
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: mix_series_atomic_extra
+- name: STDIn
+  file_name: extra
+  class_name: STDIn
+  label: STDIn
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: s_file
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  - name: l_file
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: s_val
+    dataFlowType: series
+    dataType: integer
+    doc: null
+    label: null
+    transport:
+      is_series: true
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: l_val
+    dataFlowType: series
+    dataType: integer
+    doc: null
+    label: null
+    transport:
+      is_series: true
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: mix_series_atomic_extra
+category: MixSeriesAtomicExtra

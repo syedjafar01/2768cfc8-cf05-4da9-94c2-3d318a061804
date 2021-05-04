@@ -1,0 +1,409 @@
+bundle_name: model_train
+description: null
+version: 0.0.1
+image: null
+libraries: null
+system_dependencies: null
+environment: null
+commands: null
+blocks:
+- name: SavePrediction
+  file_name: CTRPred_blocks
+  class_name: SavePrediction
+  label: SavePrediction
+  description: load raw data
+  tags:
+  - CTRPred_blocks
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: ctr_pred_data_filepath
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  - name: ad_test_data
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: ad_test_data_target
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: ad_test_data_pred
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs: []
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: model_train
+- name: SplitData
+  file_name: CTRPred_blocks
+  class_name: SplitData
+  label: SplitData
+  description: load raw data
+  tags:
+  - CTRPred_blocks
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: ad_data
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: ad_target_data
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: ad_train_data
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: ad_test_data
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: ad_train_data_target
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: ad_test_data_target
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: ad_col_dtypes_data
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: model_train
+- name: Evaluation
+  file_name: CTRPred_blocks
+  class_name: Evaluation
+  label: Evaluation
+  description: load raw data
+  tags:
+  - CTRPred_blocks
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: ad_test_data_target
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: ad_test_data_pred
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs: []
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: model_train
+- name: Scaling
+  file_name: CTRPred_blocks
+  class_name: Scaling
+  label: Scaling
+  description: load raw data
+  tags:
+  - CTRPred_blocks
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: ad_train_enc_data
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: ad_test_enc_data
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: ad_train_scale_data
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: ad_test_scale_data
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: model_train
+- name: Data_Encoding
+  file_name: CTRPred_blocks
+  class_name: Data_Encoding
+  label: Data_Encoding
+  description: load raw data
+  tags:
+  - CTRPred_blocks
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: ad_train_data
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: ad_test_data
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: ad_train_data_target
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: ad_col_dtypes_data
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: ad_train_enc_data
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: ad_test_enc_data
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: model_train
+- name: LoadCTRData
+  file_name: CTRPred_blocks
+  class_name: LoadCTRData
+  label: LoadCTRData
+  description: load raw data
+  tags:
+  - CTRPred_blocks
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: ad_data_filepath
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: ad_data
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: ad_target_data
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: model_train
+- name: TrainModel
+  file_name: CTRPred_blocks
+  class_name: TrainModel
+  label: TrainModel
+  description: load raw data
+  tags:
+  - CTRPred_blocks
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: ad_train_data
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: ad_test_data
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: ad_train_data_target
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: ad_test_data_pred
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: model_train
+category: model_train

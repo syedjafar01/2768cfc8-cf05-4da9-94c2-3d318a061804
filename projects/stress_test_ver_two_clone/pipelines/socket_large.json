@@ -1,0 +1,193 @@
+{
+  "name": "socket_large",
+  "blocks": [
+    {
+      "id": "99a06b2b-96f7-e0ab-a1da-228d7affbc9a",
+      "name": "STDIn_socket__1",
+      "versionHash": "45b07ef4-d954-411b-a061-263c9dac4763",
+      "artifactBlockName": "STDIn_socket",
+      "artifactBundleName": "project.socket1",
+      "artifactBundleType": "PROJECT",
+      "className": "STDIn",
+      "executionType": "ContainerExecutor",
+      "executionTypeSwitchable": false,
+      "resourceRequirement": {
+        "cores": 1,
+        "memory": 10000,
+        "useGpu": false,
+        "gpu": null,
+        "runEnv": null,
+        "clusterConfiguration": null
+      },
+      "category": null,
+      "inputProperty": {
+        "filename": {
+          "value": "sdk_testbench/input_data/dummy_300MB_df.parquet",
+          "doc": null,
+          "label": "filename",
+          "dataType": "string",
+          "required": false,
+          "supportVar": true,
+          "series": false,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 1,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": "STATIC",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "variable": false,
+          "default": "",
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "outputProperty": {
+        "out_ds": {
+          "value": "",
+          "doc": null,
+          "label": null,
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": false,
+          "adapter": null,
+          "transport": "SOCKET",
+          "order": 0,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": null,
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "createdBy": "Ayan Basak",
+      "createdOn": "Fri Mar 05 11:19:59 UTC 2021",
+      "lastModifiedBy": "Ayan Basak",
+      "lastModifiedOn": "Mon Mar 08 05:18:26 UTC 2021",
+      "updateAvailable": false,
+      "comments": null,
+      "inputOptions": [],
+      "outputOptions": []
+    },
+    {
+      "id": "2923e3a2-ff13-aac1-3474-3a06a6bd0867",
+      "name": "STDOut_socket__1",
+      "versionHash": "9043fb1f-b5be-4245-b7df-a55002d233cb",
+      "artifactBlockName": "STDOut_socket",
+      "artifactBundleName": "project.socket1",
+      "artifactBundleType": "PROJECT",
+      "className": "STDOut",
+      "executionType": "ContainerExecutor",
+      "executionTypeSwitchable": false,
+      "resourceRequirement": {
+        "cores": 1,
+        "memory": 10000,
+        "useGpu": false,
+        "gpu": null,
+        "runEnv": null,
+        "clusterConfiguration": null
+      },
+      "category": null,
+      "inputProperty": {
+        "in_ds": {
+          "value": null,
+          "doc": null,
+          "label": "in_ds",
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": false,
+          "adapter": null,
+          "transport": "SOCKET",
+          "order": 1,
+          "hidden": false,
+          "sourceId": "99a06b2b-96f7-e0ab-a1da-228d7affbc9a",
+          "sourceName": "out_ds",
+          "inferredType": "BLOCK",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        },
+        "out_filename": {
+          "value": "sdk_testbench/output_data/tc_03.parquet",
+          "doc": null,
+          "label": "out_filename",
+          "dataType": "string",
+          "required": false,
+          "supportVar": true,
+          "series": false,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 2,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": "STATIC",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "variable": false,
+          "default": "",
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "outputProperty": {},
+      "createdBy": "Ayan Basak",
+      "createdOn": "Fri Mar 05 11:19:59 UTC 2021",
+      "lastModifiedBy": "Ayan Basak",
+      "lastModifiedOn": "Mon Mar 08 05:18:26 UTC 2021",
+      "updateAvailable": false,
+      "comments": null,
+      "inputOptions": [],
+      "outputOptions": []
+    }
+  ],
+  "connections": [
+    {
+      "id": "a9b9f74c-e93a-13e5-b343-99ba60839a52",
+      "sourceBlockId": "99a06b2b-96f7-e0ab-a1da-228d7affbc9a",
+      "targetBlockId": "2923e3a2-ff13-aac1-3474-3a06a6bd0867",
+      "sourceOutput": {
+        "name": "out_ds",
+        "dynamic": false
+      },
+      "targetInput": {
+        "name": "in_ds",
+        "dynamic": true
+      },
+      "transport": "SOCKET"
+    }
+  ],
+  "resourceRequirement": {
+    "cores": 1,
+    "memory": 10000,
+    "useGpu": false,
+    "gpu": null,
+    "runEnv": null,
+    "clusterConfiguration": null
+  },
+  "blockGroups": null,
+  "pipelineVariableList": null,
+  "description": "",
+  "validationInfo": {
+    "messages": {},
+    "valid": true
+  },
+  "uiData": "{\"blocks\":{\"99a06b2b-96f7-e0ab-a1da-228d7affbc9a\":{\"position\":{\"x\":130,\"y\":226}},\"2923e3a2-ff13-aac1-3474-3a06a6bd0867\":{\"position\":{\"x\":485,\"y\":234}}},\"isBlockListPinned\":true}",
+  "createdBy": "ab3faaf2-fe6f-429d-9a06-5f807d7911e4",
+  "createdOn": "Fri Mar 05 13:02:11 UTC 2021",
+  "lastModifiedBy": "ab3faaf2-fe6f-429d-9a06-5f807d7911e4",
+  "lastModifiedOn": "Tue Mar 09 04:54:29 UTC 2021",
+  "variableUiData": "{}"
+}

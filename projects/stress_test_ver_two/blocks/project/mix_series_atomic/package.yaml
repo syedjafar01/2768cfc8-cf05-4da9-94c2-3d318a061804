@@ -1,0 +1,184 @@
+bundle_name: mix_series_atomic
+description: null
+version: 0.0.1
+image: null
+libraries: null
+system_dependencies: null
+environment: null
+commands: null
+blocks:
+- name: CreateData
+  file_name: mix_srs_atomic
+  class_name: CreateData
+  label: CreateData
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: filename
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  - name: size
+    dataFlowType: atomic
+    dataType: integer
+    render_type: null
+    default: 0
+    doc: null
+    label: null
+  outputs:
+  - name: out_filename
+    dataFlowType: atomic
+    dataType: string
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: mix_series_atomic
+- name: ArrayDeOp
+  file_name: mix_srs_atomic
+  class_name: ArrayDeOp
+  label: ArrayDeOp
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: array
+    dataFlowType: series
+    dataType: integer
+    render_type: null
+    default: 0
+    doc: null
+    label: null
+  - name: k
+    dataFlowType: atomic
+    dataType: integer
+    render_type: null
+    default: 0
+    doc: null
+    label: null
+  outputs:
+  - name: out_array
+    dataFlowType: atomic
+    dataType: ndarray
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: mix_series_atomic
+- name: ArrayMul
+  file_name: mix_srs_atomic
+  class_name: ArrayMul
+  label: ArrayMul
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: array
+    dataFlowType: series
+    dataType: integer
+    render_type: null
+    default: 0
+    doc: null
+    label: null
+  outputs:
+  - name: array_out
+    dataFlowType: series
+    dataType: integer
+    doc: null
+    label: null
+    transport:
+      is_series: true
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: mix_series_atomic
+- name: ArrayAdd
+  file_name: mix_srs_atomic
+  class_name: ArrayAdd
+  label: ArrayAdd
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: s_array
+    dataFlowType: series
+    dataType: integer
+    render_type: null
+    default: 0
+    doc: null
+    label: null
+  - name: l_array
+    dataFlowType: series
+    dataType: integer
+    render_type: null
+    default: 0
+    doc: null
+    label: null
+  outputs:
+  - name: s_array_out
+    dataFlowType: series
+    dataType: integer
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - true
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: l_array_out
+    dataFlowType: series
+    dataType: integer
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - true
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: mix_series_atomic
+category: MixSeriesAtomic

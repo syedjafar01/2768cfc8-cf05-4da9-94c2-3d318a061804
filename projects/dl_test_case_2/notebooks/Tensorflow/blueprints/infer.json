@@ -1,0 +1,111 @@
+{
+  "version": "3.0.0",
+  "description": "To get the predictions of the trained model with data input",
+  "name": "DLInferBlock",
+  "component_id": "inferFlowComponentId",
+  "inputs": [
+    {
+      "render_type": "Text",
+      "name": "batch_size",
+      "required": true,
+      "description": "Batch Size",
+      "default": 10,
+      "hidden": false,
+      "label": "Batch Size",
+      "supportVar": false,
+      "dataType": "integer",
+      "dataFlowType": "atomic"
+    },
+    {
+      "render_type": "SELECT_MODEL_FROM_MLC",
+      "name": "model",
+      "required": true,
+      "description": "Infer flow Default Input",
+      "hidden": false,
+      "label": "Trained Model",
+      "supportVar": false,
+      "dataType": "json",
+      "dataFlowType": "atomic"
+    },
+    {
+      "render_type": "GET_ALL_COMPONENTS",
+      "name": "layers",
+      "required": true,
+      "description": "All components",
+      "request_definition": {
+        "call_url": "/rztai/mlc/:projectId/model_run/Platform/model/block_detail/LAYER,OPERATOR,CODE,HUB_LAYER",
+        "call_body": {
+          "key": [
+            "model",
+            "value",
+            "key"
+          ]
+        }
+      },
+      "hidden": false,
+      "label": "Layers",
+      "supportVar": false,
+      "dataType": "json",
+      "dataFlowType": "atomic"
+    },
+    {
+      "render_type": "NO_PROPERTY_DENT",
+      "name": "data",
+      "required": true,
+      "hidden": false,
+      "label": "Data",
+      "supportVar": false,
+      "dataType": "generic",
+      "dataFlowType": "series"
+    },
+      {
+      "render_type": null,
+      "name": "data_id",
+      "required": false,
+      "description": "If DATA_ID has to be read and written to output ",
+      "default": false,
+      "hidden": false,
+      "label": "DATA_ID",
+      "supportVar": false,
+      "dataType": "boolean",
+      "dataFlowType": "atomic"
+    },
+    {
+      "render_type": "Text",
+      "name": "load_path",
+      "required": false,
+      "description": "Load Path",
+      "default": "default_load_path",
+      "hidden": true,
+      "label": "Load Path",
+      "supportVar": false,
+      "dataType": "atomic",
+      "dataFlowType": "atomic"
+    }
+    
+  ],
+  "outputs": [
+    {
+      "render_type": "NO_PROPERTY_DENT",
+      "name": "output",
+      "required": true,
+      "description": "Infer Output",
+      "hidden": false,
+      "label": "Infer Output",
+      "supportVar": false,
+      "dataType": "generic",
+      "dataFlowType": "series"
+    }
+  ],
+  "technology": "PYTHON",
+  "label": "Dl Infer Block",
+  "resourceSpec": {
+    "cores": 2,
+    "gpu": 0,
+    "kafkaRequired": false,
+    "memory": 2048,
+    "runEnv": "CPU",
+    "useGpu": false,
+    "useGpuIfAvailable": false
+  }
+}

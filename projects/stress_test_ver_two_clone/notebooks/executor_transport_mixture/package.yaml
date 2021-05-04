@@ -1,0 +1,262 @@
+bundle_name: executor_transport_mixture
+description: null
+version: 0.0.1
+image: null
+libraries: null
+system_dependencies: null
+environment: null
+commands: null
+blocks:
+- name: Add1
+  file_name: ex_tr_mix
+  class_name: Add1
+  label: Add1
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: input_1
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: input_2
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: sum_output
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: executor_transport_mixture
+- name: Multiply1
+  file_name: ex_tr_mix
+  class_name: Multiply1
+  label: Multiply1
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: input_sum
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: input_multiplier
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: output_mul
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: executor_transport_mixture
+- name: Add2
+  file_name: ex_tr_mix
+  class_name: Add2
+  label: Add2
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: input_1
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: input_2
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: sum_output
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: executor_transport_mixture
+- name: Multiply2
+  file_name: ex_tr_mix
+  class_name: Multiply2
+  label: Multiply2
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: input_sum
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: input_multiplier
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: out_file_name
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs: []
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: executor_transport_mixture
+- name: STDIn_2
+  file_name: ex_tr_mix
+  class_name: STDIn_2
+  label: STDIn_2
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: filename
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: a
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: b
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: c
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: d
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: e
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: executor_transport_mixture
+category: ExecTranMix

@@ -1,0 +1,515 @@
+bundle_name: Tensorflow
+description: null
+version: 0.0.1
+image: null
+libraries: null
+system_dependencies: null
+environment: null
+commands: null
+blocks:
+- name: Tensorflow_Persist
+  file_name: dl_blocks.persist
+  class_name: Tensorflow_Persist
+  label: Tensorflow_Persist
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: model
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: epochs
+    dataFlowType: atomic
+    dataType: integer
+    render_type: null
+    default: 0
+    doc: null
+    label: null
+  - name: batch_size
+    dataFlowType: atomic
+    dataType: integer
+    render_type: null
+    default: 0
+    doc: null
+    label: null
+  - name: callbacks
+    dataFlowType: atomic
+    dataType: Union[List[str], str]
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: optimizers
+    dataFlowType: atomic
+    dataType: Union[List[str], str]
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: train_data
+    dataFlowType: series
+    dataType: json
+    render_type: null
+    default: {}
+    doc: null
+    label: null
+  - name: metrics
+    dataFlowType: atomic
+    dataType: Union[List[str], dict]
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: test_data
+    dataFlowType: series
+    dataType: json
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: valid_data
+    dataFlowType: series
+    dataType: json
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: learning_rate
+    dataFlowType: atomic
+    dataType: Union[float, List[float]]
+    render_type: null
+    default:
+    - 0.1
+    doc: null
+    label: null
+  - name: save_path
+    dataFlowType: atomic
+    dataType: Union[str, NoneType]
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: valid_interval
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: epoch
+    doc: null
+    label: null
+  - name: valid_frequency
+    dataFlowType: atomic
+    dataType: integer
+    render_type: null
+    default: 1
+    doc: null
+    label: null
+  - name: load_path
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: valid_split
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: saved_path
+    dataFlowType: atomic
+    dataType: string
+    doc: null
+    label: saved_path
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+      host_id: localhost
+  defaultExecutionMode: ProcessExecutor
+  blueprint: "{\n  \"version\": \"3.0.0\",\n  \"description\": \"To perform persist on the DL model with selected optimizer, layers and data input\",\n  \"name\": \"DLPersistBlock\",\n  \"component_id\": \"persistFlowComponentId\",\n  \"inputs\": [\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"epochs\",\n      \"required\": true,\n      \"description\": \"No of Epochs\",\n      \"default\": 10,\n      \"hidden\": false,\n      \"label\": \"Epochs\",\n      \"supportVar\": false,\n      \"dataType\": \"integer\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"batch_size\",\n      \"required\": true,\n      \"description\": \"Batch Size\",\n      \"default\": 10,\n      \"hidden\": false,\n      \"label\": \"Batch Size\",\n      \"supportVar\": false,\n      \"dataType\": \"integer\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"SELECT_MODEL_FROM_MLC\",\n      \"name\": \"model\",\n      \"required\": true,\n      \"description\": \"Persist flow Default Input\",\n      \"hidden\": false,\n      \"label\": \"Trained Model\",\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"RIGHTPANE_PROPERTY\",\n      \"name\": \"callbacks\",\n      \"required\": false,\n      \"description\": \"Callbacks\",\n      \"default\": {},\n      \"hidden\": false,\n      \"label\": \"CallBacks\",\n      \"rightpaneRenderBlueprint\": [\n        {\n          \"render_type\": \"DropDown\",\n          \"required\": false,\n          \"optional\": true,\n          \"data_type\": \"List\",\n          \"possible_values\": [\n            {\n              \"render_type\": \"Form\",\n              \"name\": \"EarlyStopping Callback\",\n              \"required\": true,\n              \"data_type\": \"Complex\",\n              \"properties\": [\n                {\n                  \"render_type\": \"DropDown\",\n                  \"internal_name\": \"metric\",\n                  \"data_type\": \"List\",\n                  \"default_value\": \"\",\n                  \"possible_values\": [],\n                  \"required\": true,\n                  \"doc\": \"metric\",\n                  \"request_definition\": {\n                    \"call_url\": \"/rztai/mlc/:projectId/model_run/Platform/model/block_detail/METRIC,COST\",\n                    \"call_body\": {\n                      \"key\": [\n                        \"model\",\n                        \"value\",\n                        \"key\"\n                      ]\n                    }\n                  },\n                  \"hidden\": false,\n                  \"label\": \"Metric\",\n                  \"dataType\": \"array\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"required\": true,\n                  \"data_type\": \"List\",\n                  \"possible_values\": [\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"VALID\",\n                      \"label\": \"VALID\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    },\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"TRAIN\",\n                      \"label\": \"TRAIN\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    }\n                  ],\n                  \"hidden\": false,\n                  \"internal_name\": \"split\",\n                  \"default_value\": \"VALID\",\n                  \"label\": \"Split\",\n                  \"dataType\": null,\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"required\": true,\n                  \"data_type\": \"List\",\n                  \"possible_values\": [\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"EPOCH_END\",\n                      \"label\": \"EPOCH_END\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    },\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"SPLIT_END\",\n                      \"label\": \"SPLIT_END\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    }\n                  ],\n                  \"hidden\": false,\n                  \"internal_name\": \"interval_type\",\n                  \"default_value\": \"SPLIT_END\",\n                  \"label\": \"Interval Type\",\n                  \"dataType\": null,\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"required\": true,\n                  \"data_type\": \"List\",\n                  \"possible_values\": [\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"MAX\",\n                      \"label\": \"MAX\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    },\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"MIN\",\n                      \"label\": \"MIN\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    }\n                  ],\n                  \"hidden\": false,\n                  \"internal_name\": \"mode\",\n                  \"default_value\": \"MIN\",\n                  \"label\": \"Mode\",\n                  \"dataType\": null,\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"patience\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Integer\",\n                  \"default\": 0,\n                  \"hidden\": false,\n                  \"internal_name\": \"patience\",\n                  \"default_value\": 0,\n                  \"label\": \"Patience\",\n                  \"dataType\": \"integer\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"min_delta\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Float\",\n                  \"default\": 0.0,\n                  \"hidden\": false,\n                  \"internal_name\": \"min_delta\",\n                  \"default_value\": 0.0,\n                  \"label\": \"Min_delta\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Checkbox\",\n                  \"name\": \"restore_best_weights\",\n                  \"required\": true,\n                  \"data_type\": \"Boolean\",\n                  \"default\": false,\n                  \"hidden\": false,\n                  \"internal_name\": \"restore_best_weights\",\n                  \"default_value\": false,\n                  \"label\": \"Restore_best_weights\",\n                  \"dataType\": \"bool\",\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"baseline\",\n                  \"required\": false,\n                  \"optional\": true,\n                  \"data_type\": \"Float\",\n                  \"default\": null,\n                  \"hidden\": false,\n                  \"internal_name\": \"baseline\",\n                  \"default_value\": null,\n                  \"label\": \"Baseline\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                }\n              ],\n              \"hidden\": false,\n              \"internal_name\": \"EarlyStopping\",\n              \"label\": \"EarlyStopping CallBack\",\n              \"dataType\": \"Complex\",\n              \"dataFlowType\": null\n            },\n            {\n              \"render_type\": \"Form\",\n              \"name\": \"ReduceLROnPlateau Callback\",\n              \"required\": true,\n              \"data_type\": \"Complex\",\n              \"properties\": [\n                {\n                  \"render_type\": \"DropDown\",\n                  \"internal_name\": \"optimizer\",\n                  \"data_type\": \"List\",\n                  \"default_value\": \"\",\n                  \"possible_values\": [],\n                  \"required\": true,\n                  \"doc\": \"optimizer\",\n                  \"request_definition\": {\n                    \"call_url\": \"/rztai/mlc/:projectId/model_run/Platform/model/block_detail/OPTIMIZER\",\n                    \"call_body\": {\n                      \"key\": [\n                        \"model\",\n                        \"value\",\n                        \"key\"\n                      ]\n                    }\n                  },\n                  \"hidden\": false,\n                  \"label\": \"optimizer\",\n                  \"dataType\": \"array\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"internal_name\": \"monitor\",\n                  \"data_type\": \"List\",\n                  \"default_value\": \"\",\n                  \"possible_values\": [],\n                  \"required\": true,\n                  \"doc\": \"monitor\",\n                  \"request_definition\": {\n                    \"call_url\": \"/rztai/mlc/:projectId/model_run/Platform/model/block_detail/METRIC,COST\",\n                    \"call_body\": {\n                      \"key\": [\n                        \"model\",\n                        \"value\",\n                        \"key\"\n                      ]\n                    }\n                  },\n                  \"hidden\": false,\n                  \"label\": \"monitor\",\n                  \"dataType\": \"array\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"factor\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Float\",\n                  \"default\": 0.1,\n                  \"hidden\": false,\n                  \"internal_name\": \"factor\",\n                  \"default_value\": 0.1,\n                  \"label\": \"Factor\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"required\": true,\n                  \"data_type\": \"List\",\n                  \"possible_values\": [\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"VALID\",\n                      \"label\": \"VALID\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    },\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"TRAIN\",\n                      \"label\": \"TRAIN\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    }\n                  ],\n                  \"hidden\": false,\n                  \"internal_name\": \"split\",\n                  \"default_value\": \"TRAIN\",\n                  \"label\": \"Split\",\n                  \"dataType\": null,\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"required\": true,\n                  \"data_type\": \"List\",\n                  \"possible_values\": [\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"EPOCH_END\",\n                      \"label\": \"EPOCH_END\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    },\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"SPLIT_END\",\n                      \"label\": \"SPLIT_END\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    }\n                  ],\n                  \"hidden\": false,\n                  \"internal_name\": \"interval_type\",\n                  \"default_value\": \"EPOCH_END\",\n                  \"label\": \"Interval Type\",\n                  \"dataType\": null,\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"Checkbox\",\n                  \"name\": \"verbose\",\n                  \"required\": true,\n                  \"data_type\": \"Boolean\",\n                  \"default\": true,\n                  \"hidden\": false,\n                  \"internal_name\": \"verbose\",\n                  \"default_value\": true,\n                  \"label\": \"Verbose\",\n                  \"dataType\": \"bool\",\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"cooldown\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Integer\",\n                  \"default\": 0,\n                  \"hidden\": false,\n                  \"internal_name\": \"cooldown\",\n                  \"default_value\": 0,\n                  \"label\": \"Cooldown\",\n                  \"dataType\": \"integer\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"min_lr\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Float\",\n                  \"default\": 0,\n                  \"hidden\": false,\n                  \"internal_name\": \"min_lr\",\n                  \"default_value\": 0,\n                  \"label\": \"Min_lr\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"frequency\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Integer\",\n                  \"default\": 1,\n                  \"hidden\": false,\n                  \"internal_name\": \"frequency\",\n                  \"default_value\": 1,\n                  \"label\": \"Frequency\",\n                  \"dataType\": \"integer\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"patience\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Integer\",\n                  \"default\": 10,\n                  \"hidden\": false,\n                  \"internal_name\": \"patience\",\n                  \"default_value\": 10,\n                  \"label\": \"Patience\",\n                  \"dataType\": \"integer\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"min_delta\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Float\",\n                  \"default\": 0.0001,\n                  \"hidden\": false,\n                  \"internal_name\": \"min_delta\",\n                  \"default_value\": 0.0001,\n                  \"label\": \"Min_delta\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"required\": true,\n                  \"data_type\": \"List\",\n                  \"possible_values\": [\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"MAX\",\n                      \"label\": \"MAX\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    },\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"MIN\",\n                      \"label\": \"MIN\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    }\n                  ],\n                  \"hidden\": false,\n                  \"internal_name\": \"mode\",\n                  \"default_value\": \"MIN\",\n                  \"label\": \"Mode\",\n                  \"dataType\": null,\n                  \"dataFlowType\": null\n                }\n              ],\n              \"hidden\": false,\n              \"internal_name\": \"ReduceLROnPlateau\",\n              \"label\": \"ReduceLROnPlateau CallBack\",\n              \"dataType\": \"Complex\",\n              \"dataFlowType\": null\n            }\n          ],\n          \"hidden\": false,\n          \"repeatable\": true,\n          \"internal_name\": \"callback\",\n          \"default_value\": null,\n          \"label\": \"CallBack\",\n          \"dataType\": null,\n          \"dataFlowType\": null\n        }\n      ],\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"MLC_OPTIMIZERS\",\n      \"name\": \"optimizers\",\n      \"required\": true,\n      \"description\": \"Optimizers\",\n      \"request_definition\": {\n        \"call_url\": \"/rztai/mlc/:projectId/model_run/Platform/model/block_detail/OPTIMIZER\",\n        \"call_body\": {\n          \"key\": [\n            \"model\",\n            \"value\",\n            \"key\"\n          ]\n        }\n      },\n      \"hidden\": false,\n      \"label\": \"Optimizers\",\n      \"rightpaneRenderBlueprint\": [\n        {\n          \"render_type\": \"DropDown\",\n          \"name\": \"learning_rate\",\n          \"required\": true,\n          \"data_type\": \"list\",\n          \"possible_values\": [\n            {\n              \"render_type\": \"Form\",\n              \"name\": \"ConstantLR\",\n              \"required\": true,\n              \"data_type\": \"Complex\",\n              \"properties\": [\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"learning_rate\",\n                  \"required\": true,\n                  \"data_type\": \"Float\",\n                  \"default\": 0.01,\n                  \"hidden\": false,\n                  \"internal_name\": \"learning_rate\",\n                  \"default_value\": 0.01,\n                  \"label\": \"Learning Rate\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                }\n              ],\n              \"hidden\": false,\n              \"internal_name\": \"ConstantLR\",\n              \"label\": \"Constant Lr\",\n              \"dataType\": \"Complex\",\n              \"dataFlowType\": null\n            },\n            {\n              \"render_type\": \"Form\",\n              \"name\": \"ExponentialDecay\",\n              \"required\": true,\n              \"data_type\": \"Complex\",\n              \"properties\": [\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"decay_steps\",\n                  \"required\": true,\n                  \"data_type\": \"Integer\",\n                  \"default\": 1,\n                  \"hidden\": false,\n                  \"internal_name\": \"decay_steps\",\n                  \"default_value\": 1,\n                  \"label\": \"Decay Steps\",\n                  \"dataType\": \"integer\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"decay_rate\",\n                  \"required\": true,\n                  \"data_type\": \"Float\",\n                  \"default\": 0.96,\n                  \"hidden\": false,\n                  \"internal_name\": \"decay_rate\",\n                  \"default_value\": 0.96,\n                  \"label\": \"Decay Rate\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"initial_learning_rate\",\n                  \"required\": true,\n                  \"data_type\": \"Float\",\n                  \"default\": 0.11,\n                  \"hidden\": false,\n                  \"internal_name\": \"initial_learning_rate\",\n                  \"default_value\": 0.11,\n                  \"label\": \"Initial Learning Rate\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Checkbox\",\n                  \"name\": \"staircase\",\n                  \"required\": false,\n                  \"data_type\": \"Boolean\",\n                  \"hidden\": false,\n                  \"internal_name\": \"staircase\",\n                  \"label\": \"Staircase\",\n                  \"dataType\": \"boolean\",\n                  \"dataFlowType\": \"atomic\"\n                }\n              ],\n              \"hidden\": false,\n              \"internal_name\": \"ExponentialDecay\",\n              \"label\": \"Exponential Decay\",\n              \"dataType\": \"Complex\",\n              \"dataFlowType\": null\n            }\n          ],\n          \"hidden\": false,\n          \"internal_name\": \"learning_rate\",\n          \"default_value\": \"ConstantLR\",\n          \"label\": \"Learning Rate\",\n          \"dataType\": null,\n          \"dataFlowType\": null\n        }\n      ],\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"MLC_SELECT_METRICS\",\n      \"name\": \"metrics\",\n      \"required\": true,\n      \"description\": \"metrics\",\n      \"request_definition\": {\n        \"call_url\": \"/rztai/mlc/:projectId/model_run/Platform/model/block_detail/METRIC,COST\",\n        \"call_body\": {\n          \"key\": [\n            \"model\",\n            \"value\",\n            \"key\"\n          ]\n        }\n      },\n      \"hidden\": false,\n      \"label\": \"Metrics\",\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"RIGHTPANE_PROPERTY\",\n      \"name\": \"valid_split\",\n      \"required\": false,\n      \"description\": \"Configuration for valid split\",\n      \"default\": {},\n      \"hidden\": false,\n      \"label\": \"Valid Split\",\n      \"rightpaneRenderBlueprint\": [\n        {\n          \"render_type\": \"DropDown\",\n          \"required\": true,\n          \"data_type\": \"List\",\n          \"possible_values\": [\n            {\n              \"required\": true,\n              \"data_type\": null,\n              \"hidden\": false,\n              \"internal_name\": \"EPOCH\",\n              \"label\": \"Epoch\",\n              \"dataType\": null,\n              \"dataFlowType\": null\n            },\n            {\n              \"required\": true,\n              \"data_type\": null,\n              \"hidden\": false,\n              \"internal_name\": \"BATCH\",\n              \"label\": \"Batch\",\n              \"dataType\": null,\n              \"dataFlowType\": null\n            }\n          ],\n          \"hidden\": false,\n          \"internal_name\": \"interval_type\",\n          \"default_value\": \"EPOCH\",\n          \"label\": \"Interval Type\",\n          \"dataType\": null,\n          \"dataFlowType\": null\n        },\n        {\n          \"render_type\": \"Text\",\n          \"required\": true,\n          \"data_type\": \"Integer\",\n          \"hidden\": false,\n          \"internal_name\": \"frequency\",\n          \"default_value\": 1,\n          \"label\": \"Frequency\",\n          \"dataType\": null,\n          \"dataFlowType\": null\n        }\n      ],\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"NO_PROPERTY_DENT\",\n      \"name\": \"train_data\",\n      \"required\": true,\n      \"hidden\": false,\n      \"label\": \"Train Data\",\n      \"supportVar\": false,\n      \"dataType\": \"generic\",\n      \"dataFlowType\": \"series\"\n    },\n    {\n      \"render_type\": \"NO_PROPERTY_DENT\",\n      \"name\": \"test_data\",\n      \"required\": false,\n      \"optional\": true,\n      \"default\": [],\n      \"hidden\": false,\n      \"label\": \"Test Data\",\n      \"supportVar\": false,\n      \"dataType\": \"array\",\n      \"dataFlowType\": \"series\"\n    },\n    {\n      \"render_type\": \"NO_PROPERTY_DENT\",\n      \"name\": \"valid_data\",\n      \"required\": false,\n      \"optional\": true,\n      \"default\": [],\n      \"hidden\": false,\n      \"label\": \"Valid Data\",\n      \"supportVar\": false,\n      \"dataType\": \"array\",\n      \"dataFlowType\": \"series\"\n    },\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"learning_rate\",\n      \"required\": false,\n      \"description\": \"Learning Rate\",\n      \"default\": 10,\n      \"hidden\": true,\n      \"label\": \"Learning Rate\",\n      \"supportVar\": false,\n      \"dataType\": \"integer\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"save_path\",\n      \"required\": false,\n      \"description\": \"Save Path\",\n      \"default\": \"default_save_path\",\n      \"hidden\": true,\n      \"label\": \"Save Path\",\n      \"supportVar\": false,\n      \"dataType\": \"atomic\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"load_path\",\n      \"required\": false,\n      \"description\": \"Load Path\",\n      \"default\": \"default_load_path\",\n      \"hidden\": true,\n      \"label\": \"Load Path\",\n      \"supportVar\": false,\n      \"dataType\": \"atomic\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"valid_interval\",\n      \"required\": false,\n      \"description\": \"Valid Interval\",\n      \"default\": \"EPOCH\",\n      \"hidden\": true,\n      \"label\": \"Valid Interval\",\n      \"supportVar\": false,\n      \"dataType\": \"atomic\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"valid_frequency\",\n      \"required\": false,\n      \"description\": \"Valid Frequency\",\n      \"default\": 1,\n      \"hidden\": true,\n      \"label\": \"Valid Frequency\",\n      \"supportVar\": false,\n      \"dataType\": \"integer\",\n      \"dataFlowType\": \"atomic\"\n    }\n  ],\n  \"outputs\": [\n    {\n      \"render_type\": \"NO_PROPERTY_DENT\",\n      \"name\": \"saved_model\",\n      \"required\": true,\n      \"description\": \"Persist model key\",\n      \"hidden\": false,\n      \"label\": \"Saved Model\",\n      \"supportVar\": false,\n      \"dataType\": \"generic\",\n      \"dataFlowType\": \"atomic\"\n    }\n  ],\n  \"technology\": \"PYTHON\",\n  \"label\": \"Dl Persist Block\",\n  \"resourceSpec\": {\n    \"cores\": 2,\n    \"gpu\": 0,\n    \"kafkaRequired\": false,\n    \"memory\": 2048,\n    \"runEnv\": \"CPU\",\n    \"useGpu\": false,\n    \"useGpuIfAvailable\": false\n  }\n}"
+  source:
+    module_name: Tensorflow
+- name: CsvProjectSpaceReader
+  file_name: data_blocks.csv_reader
+  class_name: CsvProjectSpaceReader
+  label: CsvProjectSpaceReader
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: path
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: titanic.csv
+    doc: null
+    label: null
+  - name: input_column_mapping
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default:
+      InputLayer__1:
+      - A1
+      - A2
+      - A3
+      InputLayer__2:
+      - Y
+    doc: null
+    label: null
+  - name: chunk_size
+    dataFlowType: atomic
+    dataType: integer
+    render_type: null
+    default: 100
+    doc: null
+    label: null
+  outputs:
+  - name: data
+    dataFlowType: series
+    dataType: json
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - true
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+      host_id: localhost
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: Tensorflow
+- name: Tensorflow_Eval
+  file_name: dl_blocks.eval
+  class_name: Tensorflow_Eval
+  label: Tensorflow_Eval
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: model
+    dataFlowType: atomic
+    dataType: Union[Any, dict]
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: batch_size
+    dataFlowType: atomic
+    dataType: integer
+    render_type: null
+    default: 0
+    doc: null
+    label: null
+  - name: data
+    dataFlowType: series
+    dataType: json
+    render_type: null
+    default: {}
+    doc: null
+    label: null
+  - name: metrics
+    dataFlowType: atomic
+    dataType: Union[List[str], dict]
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: load_path
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: output
+    dataFlowType: atomic
+    dataType: json
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+      host_id: localhost
+  defaultExecutionMode: ProcessExecutor
+  blueprint: "{\n  \"version\": \"3.0.0\",\n  \"description\": \"To get the metrics on the data input\",\n  \"name\": \"DLEvalBlock\",\n  \"component_id\": \"evalFlowComponentId\",\n  \"inputs\": [\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"batch_size\",\n      \"required\": true,\n      \"description\": \"Batch Size\",\n      \"default\": 10,\n      \"hidden\": false,\n      \"label\": \"Batch Size\",\n      \"supportVar\": false,\n      \"dataType\": \"integer\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"SELECT_MODEL_FROM_MLC\",\n      \"name\": \"model\",\n      \"required\": true,\n      \"description\": \"Eval flow Default Input\",\n      \"hidden\": false,\n      \"label\": \"Trained Model\",\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"MLC_SELECT_METRICS\",\n      \"name\": \"metrics\",\n      \"required\": true,\n      \"description\": \"metrics\",\n      \"request_definition\": {\n        \"call_url\": \"/rztai/mlc/:projectId/model_run/Platform/model/block_detail/METRIC,COST\",\n        \"call_body\": {\n          \"key\": [\n            \"model\",\n            \"value\",\n            \"key\"\n          ]\n        }\n      },\n      \"hidden\": false,\n      \"label\": \"Metrics\",\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"NO_PROPERTY_DENT\",\n      \"name\": \"data\",\n      \"required\": true,\n      \"hidden\": false,\n      \"label\": \"Data\",\n      \"supportVar\": false,\n      \"dataType\": \"generic\",\n      \"dataFlowType\": \"series\"\n    },\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"load_path\",\n      \"required\": false,\n      \"description\": \"Load Path\",\n      \"default\": \"default_load_path\",\n      \"hidden\": true,\n      \"label\": \"Load Path\",\n      \"supportVar\": false,\n      \"dataType\": \"atomic\",\n      \"dataFlowType\": \"atomic\"\n    }\n  ],\n  \"outputs\": [\n    {\n      \"render_type\": \"NO_PROPERTY_DENT\",\n      \"name\": \"eval_output\",\n      \"required\": true,\n      \"description\": \"Eval Output\",\n      \"hidden\": false,\n      \"label\": \"Eval Output\",\n      \"supportVar\": false,\n      \"dataType\": \"generic\",\n      \"dataFlowType\": \"atomic\"\n    }\n  ],\n  \"technology\": \"PYTHON\",\n  \"label\": \"Dl Eval Block\",\n  \"resourceSpec\": {\n    \"cores\": 2,\n    \"gpu\": 0,\n    \"kafkaRequired\": false,\n    \"memory\": 2048,\n    \"runEnv\": \"CPU\",\n    \"useGpu\": false,\n    \"useGpuIfAvailable\": false\n  }\n}"
+  source:
+    module_name: Tensorflow
+- name: RandomDataGen
+  file_name: data_blocks.data_gen
+  class_name: DataGen
+  label: RandomDataGen
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: num_records
+    dataFlowType: atomic
+    dataType: integer
+    render_type: null
+    default: 10
+    doc: null
+    label: null
+  - name: column_shapes
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default:
+      InputLayer__1:
+      - 4
+      InputLayer__2:
+      - 1
+    doc: null
+    label: null
+  outputs:
+  - name: output
+    dataFlowType: series
+    dataType: json
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - true
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+      host_id: localhost
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: Tensorflow
+- name: Tensorflow_Infer
+  file_name: dl_blocks.infer
+  class_name: Tensorflow_Infer
+  label: Tensorflow_Infer
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: model
+    dataFlowType: atomic
+    dataType: Union[Any, dict]
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: batch_size
+    dataFlowType: atomic
+    dataType: integer
+    render_type: null
+    default: 0
+    doc: null
+    label: null
+  - name: data
+    dataFlowType: series
+    dataType: json
+    render_type: null
+    default: {}
+    doc: null
+    label: null
+  - name: layers
+    dataFlowType: atomic
+    dataType: Union[List[str], dict]
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: data_id
+    dataFlowType: atomic
+    dataType: boolean
+    render_type: null
+    default: false
+    doc: null
+    label: null
+  - name: load_path
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: output
+    dataFlowType: series
+    dataType: json
+    doc: null
+    label: output
+    transport:
+      is_series:
+      - true
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+      host_id: localhost
+  defaultExecutionMode: ProcessExecutor
+  blueprint: "{\n  \"version\": \"3.0.0\",\n  \"description\": \"To get the predictions of the trained model with data input\",\n  \"name\": \"DLInferBlock\",\n  \"component_id\": \"inferFlowComponentId\",\n  \"inputs\": [\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"batch_size\",\n      \"required\": true,\n      \"description\": \"Batch Size\",\n      \"default\": 10,\n      \"hidden\": false,\n      \"label\": \"Batch Size\",\n      \"supportVar\": false,\n      \"dataType\": \"integer\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"SELECT_MODEL_FROM_MLC\",\n      \"name\": \"model\",\n      \"required\": true,\n      \"description\": \"Infer flow Default Input\",\n      \"hidden\": false,\n      \"label\": \"Trained Model\",\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"GET_ALL_COMPONENTS\",\n      \"name\": \"layers\",\n      \"required\": true,\n      \"description\": \"All components\",\n      \"request_definition\": {\n        \"call_url\": \"/rztai/mlc/:projectId/model_run/Platform/model/block_detail/LAYER,OPERATOR,CODE,HUB_LAYER\",\n        \"call_body\": {\n          \"key\": [\n            \"model\",\n            \"value\",\n            \"key\"\n          ]\n        }\n      },\n      \"hidden\": false,\n      \"label\": \"Layers\",\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"NO_PROPERTY_DENT\",\n      \"name\": \"data\",\n      \"required\": true,\n      \"hidden\": false,\n      \"label\": \"Data\",\n      \"supportVar\": false,\n      \"dataType\": \"generic\",\n      \"dataFlowType\": \"series\"\n    },\n      {\n      \"render_type\": null,\n      \"name\": \"data_id\",\n      \"required\": false,\n      \"description\": \"If DATA_ID has to be read and written to output \",\n      \"default\": false,\n      \"hidden\": false,\n      \"label\": \"DATA_ID\",\n      \"supportVar\": false,\n      \"dataType\": \"boolean\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"load_path\",\n      \"required\": false,\n      \"description\": \"Load Path\",\n      \"default\": \"default_load_path\",\n      \"hidden\": true,\n      \"label\": \"Load Path\",\n      \"supportVar\": false,\n      \"dataType\": \"atomic\",\n      \"dataFlowType\": \"atomic\"\n    }\n    \n  ],\n  \"outputs\": [\n    {\n      \"render_type\": \"NO_PROPERTY_DENT\",\n      \"name\": \"output\",\n      \"required\": true,\n      \"description\": \"Infer Output\",\n      \"hidden\": false,\n      \"label\": \"Infer Output\",\n      \"supportVar\": false,\n      \"dataType\": \"generic\",\n      \"dataFlowType\": \"series\"\n    }\n  ],\n  \"technology\": \"PYTHON\",\n  \"label\": \"Dl Infer Block\",\n  \"resourceSpec\": {\n    \"cores\": 2,\n    \"gpu\": 0,\n    \"kafkaRequired\": false,\n    \"memory\": 2048,\n    \"runEnv\": \"CPU\",\n    \"useGpu\": false,\n    \"useGpuIfAvailable\": false\n  }\n}"
+  source:
+    module_name: Tensorflow
+- name: Tensorflow_Train
+  file_name: dl_blocks.trainer
+  class_name: Tensorflow_Train
+  label: Tensorflow_Train
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: model
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: epochs
+    dataFlowType: atomic
+    dataType: integer
+    render_type: null
+    default: 0
+    doc: null
+    label: null
+  - name: batch_size
+    dataFlowType: atomic
+    dataType: integer
+    render_type: null
+    default: 0
+    doc: null
+    label: null
+  - name: callbacks
+    dataFlowType: atomic
+    dataType: Union[List[str], str]
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: optimizers
+    dataFlowType: atomic
+    dataType: Union[List[str], str]
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: train_data
+    dataFlowType: series
+    dataType: json
+    render_type: null
+    default: {}
+    doc: null
+    label: null
+  - name: metrics
+    dataFlowType: atomic
+    dataType: Union[List[str], dict]
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: test_data
+    dataFlowType: series
+    dataType: json
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: valid_data
+    dataFlowType: series
+    dataType: json
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: learning_rate
+    dataFlowType: atomic
+    dataType: Union[float, List[float]]
+    render_type: null
+    default:
+    - 0.1
+    doc: null
+    label: null
+  - name: save_path
+    dataFlowType: atomic
+    dataType: Union[str, NoneType]
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: valid_interval
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: epoch
+    doc: null
+    label: null
+  - name: valid_frequency
+    dataFlowType: atomic
+    dataType: integer
+    render_type: null
+    default: 1
+    doc: null
+    label: null
+  - name: valid_split
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: saved_path
+    dataFlowType: atomic
+    dataType: string
+    doc: null
+    label: saved_path
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+      host_id: localhost
+  defaultExecutionMode: ProcessExecutor
+  blueprint: "{\n  \"version\": \"3.0.0\",\n  \"description\": \"To train the DL model with selected optimizer, layers and data input\",\n  \"name\": \"DLTrainBlock\",\n  \"component_id\": \"trainFlowComponentId\",\n  \"inputs\": [\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"epochs\",\n      \"required\": true,\n      \"description\": \"No of Epochs\",\n      \"default\": 10,\n      \"hidden\": false,\n      \"label\": \"Epochs\",\n      \"supportVar\": false,\n      \"dataType\": \"integer\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"batch_size\",\n      \"required\": true,\n      \"description\": \"Batch Size\",\n      \"default\": 10,\n      \"hidden\": false,\n      \"label\": \"Batch Size\",\n      \"supportVar\": false,\n      \"dataType\": \"integer\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"SELECT_MODEL_FROM_BUILDER\",\n      \"name\": \"model\",\n      \"required\": true,\n      \"description\": \"Train flow Default Input\",\n      \"hidden\": false,\n      \"label\": \"Model\",\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\",\n      \"request_definition\": {\n        \"call_url\": \"/rztai/model-builder/:projectId/model/json_path\"\n      }\n    },\n    {\n      \"render_type\": \"RIGHTPANE_PROPERTY\",\n      \"name\": \"callbacks\",\n      \"required\": false,\n      \"description\": \"Callbacks\",\n      \"default\": {},\n      \"hidden\": false,\n      \"label\": \"CallBacks\",\n      \"rightpaneRenderBlueprint\": [\n        {\n          \"render_type\": \"DropDown\",\n          \"required\": false,\n          \"optional\": true,\n          \"data_type\": \"List\",\n          \"possible_values\": [\n            {\n              \"render_type\": \"Form\",\n              \"name\": \"EarlyStopping Callback\",\n              \"required\": true,\n              \"data_type\": \"Complex\",\n              \"properties\": [\n                {\n                  \"render_type\": \"DropDown\",\n                  \"internal_name\": \"metric\",\n                  \"data_type\": \"List\",\n                  \"default_value\": \"\",\n                  \"possible_values\": [],\n                  \"required\": true,\n                  \"doc\": \"metric\",\n                  \"request_definition\": {\n                    \"call_url\": \"/rztai/model-builder/:projectId/model/:modelName/block_detail/METRIC,COST\",\n                    \"call_key\": {\n                      \"modelName\": [\n                        \"model\",\n                        \"value\",\n                        \"name\"\n                      ]\n                    }\n                  },\n                  \"hidden\": false,\n                  \"label\": \"Metric\",\n                  \"dataType\": \"array\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"required\": true,\n                  \"data_type\": \"List\",\n                  \"possible_values\": [\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"VALID\",\n                      \"label\": \"VALID\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    },\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"TRAIN\",\n                      \"label\": \"TRAIN\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    }\n                  ],\n                  \"hidden\": false,\n                  \"internal_name\": \"split\",\n                  \"default_value\": \"VALID\",\n                  \"label\": \"Split\",\n                  \"dataType\": null,\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"required\": true,\n                  \"data_type\": \"List\",\n                  \"possible_values\": [\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"EPOCH_END\",\n                      \"label\": \"EPOCH_END\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    },\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"SPLIT_END\",\n                      \"label\": \"SPLIT_END\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    }\n                  ],\n                  \"hidden\": false,\n                  \"internal_name\": \"interval_type\",\n                  \"default_value\": \"SPLIT_END\",\n                  \"label\": \"Interval Type\",\n                  \"dataType\": null,\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"required\": true,\n                  \"data_type\": \"List\",\n                  \"possible_values\": [\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"MIN\",\n                      \"label\": \"MIN\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    },\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"MAX\",\n                      \"label\": \"MAX\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    }\n                  ],\n                  \"hidden\": false,\n                  \"internal_name\": \"mode\",\n                  \"default_value\": \"MIN\",\n                  \"label\": \"Mode\",\n                  \"dataType\": null,\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"patience\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Integer\",\n                  \"default\": 0,\n                  \"hidden\": false,\n                  \"internal_name\": \"patience\",\n                  \"default_value\": 0,\n                  \"label\": \"Patience\",\n                  \"dataType\": \"integer\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"min_delta\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Float\",\n                  \"default\": 0.0,\n                  \"hidden\": false,\n                  \"internal_name\": \"min_delta\",\n                  \"default_value\": 0.0,\n                  \"label\": \"Min_delta\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Checkbox\",\n                  \"name\": \"restore_best_weights\",\n                  \"required\": true,\n                  \"data_type\": \"Boolean\",\n                  \"default\": false,\n                  \"hidden\": false,\n                  \"internal_name\": \"restore_best_weights\",\n                  \"default_value\": false,\n                  \"label\": \"Restore_best_weights\",\n                  \"dataType\": \"bool\",\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"baseline\",\n                  \"required\": false,\n                  \"optional\": true,\n                  \"data_type\": \"Float\",\n                  \"default\": null,\n                  \"hidden\": false,\n                  \"internal_name\": \"baseline\",\n                  \"default_value\": null,\n                  \"label\": \"Baseline\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                }\n              ],\n              \"hidden\": false,\n              \"internal_name\": \"EarlyStopping\",\n              \"label\": \"EarlyStopping CallBack\",\n              \"dataType\": \"Complex\",\n              \"dataFlowType\": null\n            },\n            {\n              \"render_type\": \"Form\",\n              \"name\": \"ReduceLROnPlateau Callback\",\n              \"required\": true,\n              \"data_type\": \"Complex\",\n              \"properties\": [\n                {\n                  \"render_type\": \"DropDown\",\n                  \"internal_name\": \"optimizer\",\n                  \"data_type\": \"List\",\n                  \"default_value\": \"\",\n                  \"possible_values\": [],\n                  \"required\": true,\n                  \"doc\": \"optimizer\",\n                  \"request_definition\": {\n                    \"call_url\": \"/rztai/model-builder/:projectId/model/:modelName/block_detail/OPTIMIZER\",\n                    \"call_key\": {\n                      \"modelName\": [\n                        \"model\",\n                        \"value\",\n                        \"name\"\n                      ]\n                    }\n                  },\n                  \"hidden\": false,\n                  \"label\": \"optimizer\",\n                  \"dataType\": \"array\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"internal_name\": \"monitor\",\n                  \"data_type\": \"List\",\n                  \"default_value\": \"\",\n                  \"possible_values\": [],\n                  \"required\": true,\n                  \"doc\": \"monitor\",\n                  \"request_definition\": {\n                    \"call_url\": \"/rztai/model-builder/:projectId/model/:modelName/block_detail/METRIC,COST\",\n                    \"call_key\": {\n                      \"modelName\": [\n                        \"model\",\n                        \"value\",\n                        \"name\"\n                      ]\n                    }\n                  },\n                  \"hidden\": false,\n                  \"label\": \"monitor\",\n                  \"dataType\": \"array\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"factor\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Float\",\n                  \"default\": 0.1,\n                  \"hidden\": false,\n                  \"internal_name\": \"factor\",\n                  \"default_value\": 0.1,\n                  \"label\": \"Factor\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"required\": true,\n                  \"data_type\": \"List\",\n                  \"possible_values\": [\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"VALID\",\n                      \"label\": \"VALID\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    },\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"TRAIN\",\n                      \"label\": \"TRAIN\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    }\n                  ],\n                  \"hidden\": false,\n                  \"internal_name\": \"split\",\n                  \"default_value\": \"TRAIN\",\n                  \"label\": \"Split\",\n                  \"dataType\": null,\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"required\": true,\n                  \"data_type\": \"List\",\n                  \"possible_values\": [\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"EPOCH_END\",\n                      \"label\": \"EPOCH_END\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    },\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"SPLIT_END\",\n                      \"label\": \"SPLIT_END\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    }\n                  ],\n                  \"hidden\": false,\n                  \"internal_name\": \"interval_type\",\n                  \"default_value\": \"EPOCH_END\",\n                  \"label\": \"Interval Type\",\n                  \"dataType\": null,\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"Checkbox\",\n                  \"name\": \"verbose\",\n                  \"required\": true,\n                  \"data_type\": \"Boolean\",\n                  \"default\": true,\n                  \"hidden\": false,\n                  \"internal_name\": \"verbose\",\n                  \"default_value\": true,\n                  \"label\": \"Verbose\",\n                  \"dataType\": \"bool\",\n                  \"dataFlowType\": null\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"cooldown\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Integer\",\n                  \"default\": 0,\n                  \"hidden\": false,\n                  \"internal_name\": \"cooldown\",\n                  \"default_value\": 0,\n                  \"label\": \"Cooldown\",\n                  \"dataType\": \"integer\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"min_lr\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Float\",\n                  \"default\": 0,\n                  \"hidden\": false,\n                  \"internal_name\": \"min_lr\",\n                  \"default_value\": 0,\n                  \"label\": \"Min_lr\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"frequency\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Integer\",\n                  \"default\": 1,\n                  \"hidden\": false,\n                  \"internal_name\": \"frequency\",\n                  \"default_value\": 1,\n                  \"label\": \"Frequency\",\n                  \"dataType\": \"integer\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"patience\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Integer\",\n                  \"default\": 10,\n                  \"hidden\": false,\n                  \"internal_name\": \"patience\",\n                  \"default_value\": 10,\n                  \"label\": \"Patience\",\n                  \"dataType\": \"integer\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"min_delta\",\n                  \"required\": true,\n                  \"optional\": false,\n                  \"data_type\": \"Float\",\n                  \"default\": 0.0001,\n                  \"hidden\": false,\n                  \"internal_name\": \"min_delta\",\n                  \"default_value\": 0.0001,\n                  \"label\": \"Min_delta\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"DropDown\",\n                  \"required\": true,\n                  \"data_type\": \"List\",\n                  \"possible_values\": [\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"MAX\",\n                      \"label\": \"MAX\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    },\n                    {\n                      \"required\": true,\n                      \"data_type\": null,\n                      \"hidden\": false,\n                      \"internal_name\": \"MIN\",\n                      \"label\": \"MIN\",\n                      \"dataType\": null,\n                      \"dataFlowType\": null\n                    }\n                  ],\n                  \"hidden\": false,\n                  \"internal_name\": \"mode\",\n                  \"default_value\": \"MIN\",\n                  \"label\": \"Mode\",\n                  \"dataType\": null,\n                  \"dataFlowType\": null\n                }\n              ],\n              \"hidden\": false,\n              \"internal_name\": \"ReduceLROnPlateau\",\n              \"label\": \"ReduceLROnPlateau CallBack\",\n              \"dataType\": \"Complex\",\n              \"dataFlowType\": null\n            }\n          ],\n          \"hidden\": false,\n          \"repeatable\": true,\n          \"internal_name\": \"callback\",\n          \"default_value\": null,\n          \"label\": \"CallBack\",\n          \"dataType\": null,\n          \"dataFlowType\": null\n        }\n      ],\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"OPTIMIZERS\",\n      \"name\": \"optimizers\",\n      \"required\": true,\n      \"description\": \"Optimizers\",\n      \"request_definition\": {\n        \"call_url\": \"/rztai/model-builder/:projectId/model/:modelName/block_detail/OPTIMIZER\",\n        \"call_key\": {\n          \"modelName\": [\n            \"model\",\n            \"value\",\n            \"name\"\n          ]\n        }\n      },\n      \"hidden\": false,\n      \"label\": \"Optimizers\",\n      \"rightpaneRenderBlueprint\": [\n        {\n          \"render_type\": \"DropDown\",\n          \"name\": \"learning_rate\",\n          \"required\": true,\n          \"data_type\": \"list\",\n          \"possible_values\": [\n            {\n              \"render_type\": \"Form\",\n              \"name\": \"ConstantLR\",\n              \"required\": true,\n              \"data_type\": \"Complex\",\n              \"properties\": [\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"learning_rate\",\n                  \"required\": true,\n                  \"data_type\": \"Float\",\n                  \"default\": 0.01,\n                  \"hidden\": false,\n                  \"internal_name\": \"learning_rate\",\n                  \"default_value\": 0.01,\n                  \"label\": \"Learning Rate\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                }\n              ],\n              \"hidden\": false,\n              \"internal_name\": \"ConstantLR\",\n              \"label\": \"Constant Lr\",\n              \"dataType\": \"Complex\",\n              \"dataFlowType\": null\n            },\n            {\n              \"render_type\": \"Form\",\n              \"name\": \"ExponentialDecay\",\n              \"required\": true,\n              \"data_type\": \"Complex\",\n              \"properties\": [\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"decay_steps\",\n                  \"required\": true,\n                  \"data_type\": \"Integer\",\n                  \"default\": 1,\n                  \"hidden\": false,\n                  \"internal_name\": \"decay_steps\",\n                  \"default_value\": 1,\n                  \"label\": \"Decay Steps\",\n                  \"dataType\": \"integer\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"decay_rate\",\n                  \"required\": true,\n                  \"data_type\": \"Float\",\n                  \"default\": 0.96,\n                  \"hidden\": false,\n                  \"internal_name\": \"decay_rate\",\n                  \"default_value\": 0.96,\n                  \"label\": \"Decay Rate\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Text\",\n                  \"name\": \"initial_learning_rate\",\n                  \"required\": true,\n                  \"data_type\": \"Float\",\n                  \"default\": 0.11,\n                  \"hidden\": false,\n                  \"internal_name\": \"initial_learning_rate\",\n                  \"default_value\": 0.11,\n                  \"label\": \"Initial Learning Rate\",\n                  \"dataType\": \"float\",\n                  \"dataFlowType\": \"atomic\"\n                },\n                {\n                  \"render_type\": \"Checkbox\",\n                  \"name\": \"staircase\",\n                  \"required\": false,\n                  \"data_type\": \"Boolean\",\n                  \"hidden\": false,\n                  \"internal_name\": \"staircase\",\n                  \"label\": \"Staircase\",\n                  \"dataType\": \"boolean\",\n                  \"dataFlowType\": \"atomic\"\n                }\n              ],\n              \"hidden\": false,\n              \"internal_name\": \"ExponentialDecay\",\n              \"label\": \"Exponential Decay\",\n              \"dataType\": \"Complex\",\n              \"dataFlowType\": null\n            }\n          ],\n          \"hidden\": false,\n          \"internal_name\": \"learning_rate\",\n          \"default_value\": \"ConstantLR\",\n          \"label\": \"Learning Rate\",\n          \"dataType\": null,\n          \"dataFlowType\": null\n        }\n      ],\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"SELECT_METRICS\",\n      \"name\": \"metrics\",\n      \"required\": true,\n      \"description\": \"metrics\",\n      \"request_definition\": {\n        \"call_url\": \"/rztai/model-builder/:projectId/model/:modelName/block_detail/METRIC,COST\",\n        \"call_key\": {\n          \"modelName\": [\n            \"model\",\n            \"value\",\n            \"name\"\n          ]\n        }\n      },\n      \"hidden\": false,\n      \"label\": \"Metrics\",\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"RIGHTPANE_PROPERTY\",\n      \"name\": \"valid_split\",\n      \"required\": false,\n      \"description\": \"Configuration for valid split\",\n      \"default\": {},\n      \"hidden\": false,\n      \"label\": \"Valid Split\",\n      \"rightpaneRenderBlueprint\": [\n        {\n          \"render_type\": \"DropDown\",\n          \"required\": true,\n          \"data_type\": \"List\",\n          \"possible_values\": [\n            {\n              \"required\": true,\n              \"data_type\": null,\n              \"hidden\": false,\n              \"internal_name\": \"EPOCH\",\n              \"label\": \"Epoch\",\n              \"dataType\": null,\n              \"dataFlowType\": null\n            },\n            {\n              \"required\": true,\n              \"data_type\": null,\n              \"hidden\": false,\n              \"internal_name\": \"BATCH\",\n              \"label\": \"Batch\",\n              \"dataType\": null,\n              \"dataFlowType\": null\n            }\n          ],\n          \"hidden\": false,\n          \"internal_name\": \"interval_type\",\n          \"default_value\": \"EPOCH\",\n          \"label\": \"Interval Type\",\n          \"dataType\": null,\n          \"dataFlowType\": null\n        },\n        {\n          \"render_type\": \"Text\",\n          \"required\": true,\n          \"data_type\": \"Integer\",\n          \"hidden\": false,\n          \"internal_name\": \"frequency\",\n          \"default_value\": 1,\n          \"label\": \"Frequency\",\n          \"dataType\": null,\n          \"dataFlowType\": null\n        }\n      ],\n      \"supportVar\": false,\n      \"dataType\": \"json\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"NO_PROPERTY_DENT\",\n      \"name\": \"train_data\",\n      \"required\": true,\n      \"hidden\": false,\n      \"label\": \"Train Data\",\n      \"supportVar\": false,\n      \"dataType\": \"generic\",\n      \"dataFlowType\": \"series\"\n    },\n    {\n      \"render_type\": \"NO_PROPERTY_DENT\",\n      \"name\": \"test_data\",\n      \"required\": false,\n      \"optional\": true,\n      \"default\": [],\n      \"hidden\": false,\n      \"label\": \"Test Data\",\n      \"supportVar\": false,\n      \"dataType\": \"array\",\n      \"dataFlowType\": \"series\"\n    },\n    {\n      \"render_type\": \"NO_PROPERTY_DENT\",\n      \"name\": \"valid_data\",\n      \"required\": false,\n      \"optional\": true,\n      \"default\": [],\n      \"hidden\": false,\n      \"label\": \"Valid Data\",\n      \"supportVar\": false,\n      \"dataType\": \"array\",\n      \"dataFlowType\": \"series\"\n    },\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"learning_rate\",\n      \"required\": false,\n      \"description\": \"Learning Rate\",\n      \"default\": 10,\n      \"hidden\": true,\n      \"label\": \"Learning Rate\",\n      \"supportVar\": false,\n      \"dataType\": \"integer\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"save_path\",\n      \"required\": false,\n      \"description\": \"Save Path\",\n      \"default\": \"default_save_path\",\n      \"hidden\": true,\n      \"label\": \"Save Path\",\n      \"supportVar\": false,\n      \"dataType\": \"atomic\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"valid_interval\",\n      \"required\": false,\n      \"description\": \"Valid Interval\",\n      \"default\": \"EPOCH\",\n      \"hidden\": true,\n      \"label\": \"Valid Interval\",\n      \"supportVar\": false,\n      \"dataType\": \"atomic\",\n      \"dataFlowType\": \"atomic\"\n    },\n    {\n      \"render_type\": \"Text\",\n      \"name\": \"valid_frequency\",\n      \"required\": false,\n      \"description\": \"Valid Frequency\",\n      \"default\": 1,\n      \"hidden\": true,\n      \"label\": \"Valid Frequency\",\n      \"supportVar\": false,\n      \"dataType\": \"integer\",\n      \"dataFlowType\": \"atomic\"\n    }\n  ],\n  \"outputs\": [\n    {\n      \"render_type\": \"NO_PROPERTY_DENT\",\n      \"name\": \"saved_path\",\n      \"required\": true,\n      \"description\": \"Trained model key\",\n      \"hidden\": false,\n      \"label\": \"Saved Model\",\n      \"supportVar\": false,\n      \"dataType\": \"generic\",\n      \"dataFlowType\": \"atomic\"\n    }\n  ],\n  \"technology\": \"PYTHON\",\n  \"label\": \"Dl Train Block\",\n  \"resourceSpec\": {\n    \"cores\": 2,\n    \"gpu\": 0,\n    \"kafkaRequired\": false,\n    \"memory\": 2048,\n    \"runEnv\": \"CPU\",\n    \"useGpu\": false,\n    \"useGpuIfAvailable\": false\n  }\n}"
+  source:
+    module_name: Tensorflow
+category: DLBlocks

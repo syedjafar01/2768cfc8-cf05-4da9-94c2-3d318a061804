@@ -1,0 +1,45 @@
+bundle_name: sum_axis_sum_single
+description: null
+version: 0.0.1
+image: null
+libraries: null
+system_dependencies: null
+environment: null
+commands: null
+blocks:
+- name: SumAxisSum
+  file_name: sum_ax_sum_single
+  class_name: SumAxisSum
+  label: SumAxisSum
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: in_ds
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: out_ds
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: sum_axis_sum_single
+category: SumAxisSumSingle

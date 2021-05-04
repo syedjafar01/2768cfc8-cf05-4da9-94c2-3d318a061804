@@ -1,0 +1,507 @@
+bundle_name: ayan_spark_blocks_clone
+description: null
+version: 0.0.1
+image: null
+libraries: null
+system_dependencies: null
+environment: null
+commands: null
+blocks:
+- name: Customer Static Data
+  file_name: blocks
+  class_name: CustStatic
+  label: Customer Static Data
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+    resource_requirements:
+      cores: 1
+      memory: 1024
+      gpu: 0
+      gpu_is_optional: true
+      max_servers_count: 1
+      number_of_instances: 1
+  inputs:
+  - name: ip_data
+    dataFlowType: atomic
+    dataType: DataFrame
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: &id001 {}
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: customer_static
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: ayan_spark_blocks_clone
+- name: Spark drop duplicates block
+  file_name: blocks
+  class_name: DropDuplicates
+  label: Spark drop duplicates block
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+    resource_requirements:
+      cores: 1
+      memory: 1024
+      gpu: 0
+      gpu_is_optional: true
+      max_servers_count: 1
+      number_of_instances: 1
+  inputs:
+  - name: ip_data
+    dataFlowType: atomic
+    dataType: DataFrame
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: *id001
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: op_data
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: ayan_spark_blocks_clone
+- name: Product Type TS
+  file_name: blocks
+  class_name: ProdTypeTS
+  label: Product Type TS
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+    resource_requirements:
+      cores: 1
+      memory: 1024
+      gpu: 0
+      gpu_is_optional: true
+      max_servers_count: 1
+      number_of_instances: 1
+  inputs:
+  - name: ip_data
+    dataFlowType: atomic
+    dataType: DataFrame
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: *id001
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: prod_type_ts
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: ayan_spark_blocks_clone
+- name: Customer Merchant TS
+  file_name: flow.blocks
+  class_name: CustMercTS
+  label: Customer Merchant TS
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+    resource_requirements:
+      cores: 1
+      memory: 1024
+      gpu: 0
+      gpu_is_optional: true
+      max_servers_count: 1
+      number_of_instances: 1
+  inputs:
+  - name: ip_data
+    dataFlowType: atomic
+    dataType: DataFrame
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: *id001
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: customer_ts
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: merchant_ts
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: ayan_spark_blocks_clone
+- name: Merchant Static Data
+  file_name: blocks
+  class_name: MercStatic
+  label: Merchant Static Data
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+    resource_requirements:
+      cores: 1
+      memory: 1024
+      gpu: 0
+      gpu_is_optional: true
+      max_servers_count: 1
+      number_of_instances: 1
+  inputs:
+  - name: ip_data
+    dataFlowType: atomic
+    dataType: DataFrame
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: *id001
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: merchant_static
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: ayan_spark_blocks_clone
+- name: Transaction Type TS
+  file_name: blocks
+  class_name: TranTypeTS
+  label: Transaction Type TS
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+    resource_requirements:
+      cores: 1
+      memory: 1024
+      gpu: 0
+      gpu_is_optional: true
+      max_servers_count: 1
+      number_of_instances: 1
+  inputs:
+  - name: ip_data
+    dataFlowType: atomic
+    dataType: DataFrame
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: *id001
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: tran_type_ts
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: ayan_spark_blocks_clone
+- name: NonSpark_path_resolver
+  file_name: blocks
+  class_name: NonSparkPath
+  label: NonSpark_path_resolver
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: ip_path
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: op_path
+    dataFlowType: atomic
+    dataType: string
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: ayan_spark_blocks_clone
+- name: Spark read csv block
+  file_name: blocks
+  class_name: ReadCsvProjectSpace
+  label: Spark read csv block
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+    resource_requirements:
+      cores: 1
+      memory: 1024
+      gpu: 0
+      gpu_is_optional: true
+      max_servers_count: 1
+      number_of_instances: 1
+  inputs:
+  - name: filename
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: *id001
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: data
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: ayan_spark_blocks_clone
+- name: Transaction City TS
+  file_name: blocks
+  class_name: TranCityTS
+  label: Transaction City TS
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+    resource_requirements:
+      cores: 1
+      memory: 1024
+      gpu: 0
+      gpu_is_optional: true
+      max_servers_count: 1
+      number_of_instances: 1
+  inputs:
+  - name: ip_data
+    dataFlowType: atomic
+    dataType: DataFrame
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: *id001
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: tran_city_ts
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: ayan_spark_blocks_clone
+category: AyanSpark

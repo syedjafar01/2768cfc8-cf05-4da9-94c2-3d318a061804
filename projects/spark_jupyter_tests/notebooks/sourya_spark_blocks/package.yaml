@@ -1,0 +1,416 @@
+bundle_name: sourya_spark_blocks
+description: null
+version: 0.0.1
+image: null
+libraries: null
+system_dependencies: null
+environment: null
+commands: null
+blocks:
+- name: NonSpark_Cols
+  file_name: blocks
+  class_name: NonSparkCols
+  label: NonSpark_Cols
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: cols_list
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  outputs:
+  - name: selected_cols
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: sourya_spark_blocks
+- name: ReadCsv_ProjectSpace
+  file_name: blocks
+  class_name: ReadCsvProjectSpace
+  label: ReadCsv_ProjectSpace
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: filename
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: &id001 {}
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: data
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: sourya_spark_blocks
+- name: NonSpark_Path
+  file_name: blocks
+  class_name: NonSparkPath
+  label: NonSpark_Path
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: ip_path
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: op_path
+    dataFlowType: atomic
+    dataType: string
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: sourya_spark_blocks
+- name: Drop_Duplicates
+  file_name: blocks
+  class_name: DropDuplicates
+  label: Drop_Duplicates
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: inputData
+    dataFlowType: atomic
+    dataType: DataFrame
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: *id001
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: outputData
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: sourya_spark_blocks
+- name: Rename_Col
+  file_name: blocks
+  class_name: RenameCol
+  label: Rename_Col
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: inputData
+    dataFlowType: atomic
+    dataType: DataFrame
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: col_dic
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: *id001
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: outputData
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: sourya_spark_blocks
+- name: Concat_Data
+  file_name: blocks
+  class_name: ConcatData
+  label: Concat_Data
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: inputData_1
+    dataFlowType: atomic
+    dataType: DataFrame
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: inputData_2
+    dataFlowType: atomic
+    dataType: DataFrame
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: *id001
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: outputData
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: sourya_spark_blocks
+- name: SelectData_Describe
+  file_name: blocks
+  class_name: SelectDataDescribe
+  label: SelectData_Describe
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: filename
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: *id001
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs: []
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: sourya_spark_blocks
+- name: Select_Data
+  file_name: blocks
+  class_name: SelectData
+  label: Select_Data
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: wanted_cols
+    dataFlowType: atomic
+    dataType: Any
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: inputData
+    dataFlowType: atomic
+    dataType: DataFrame
+    render_type: null
+    default: null
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: *id001
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: outputData
+    dataFlowType: atomic
+    dataType: DataFrame
+    doc: null
+    label: null
+    transport:
+      is_series:
+      - false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: sourya_spark_blocks
+- name: ReadCsv_ProjectSpace_ETA
+  file_name: blocks
+  class_name: ReadCsvProjectSpaceETA
+  label: ReadCsv_ProjectSpace_ETA
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: filename
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  - name: config
+    dataFlowType: atomic
+    dataType: json
+    render_type: null
+    default: *id001
+    doc: null
+    label: null
+  - name: source
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs: []
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: sourya_spark_blocks
+category: SouryaSpark

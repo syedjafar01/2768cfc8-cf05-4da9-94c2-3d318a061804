@@ -1,0 +1,24 @@
+bundle_name: train_blocks
+description: null
+version: 0.0.1
+image: null
+libraries: null
+system_dependencies: null
+environment: null
+commands: null
+blocks:
+- name: DataFeeder
+  file_name: feeder
+  class_name: DataFeeder
+  label: DataFeeder
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs: []
+  outputs: []
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: train_blocks
+category: t_cat

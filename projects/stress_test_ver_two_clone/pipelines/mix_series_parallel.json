@@ -1,0 +1,1021 @@
+{
+  "name": "mix_series_parallel",
+  "blocks": [
+    {
+      "id": "8e6bdf05-7682-36e8-2258-ff0e46dcb115",
+      "name": "STDIn_series__2",
+      "versionHash": "524c413a-4676-458f-9e3e-7746d159df9a",
+      "artifactBlockName": "STDIn_series",
+      "artifactBundleName": "project.series_socket",
+      "artifactBundleType": "PROJECT",
+      "className": "STDIn_series",
+      "executionType": "ContainerExecutor",
+      "executionTypeSwitchable": false,
+      "resourceRequirement": {
+        "cores": 1,
+        "memory": 25000,
+        "useGpu": false,
+        "gpu": null,
+        "runEnv": null,
+        "clusterConfiguration": null
+      },
+      "category": null,
+      "inputProperty": {
+        "filename": {
+          "value": "sdk_testbench/input_data/file100MB.txt",
+          "doc": null,
+          "label": "filename",
+          "dataType": "string",
+          "required": false,
+          "supportVar": true,
+          "series": false,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 1,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": "STATIC",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": "",
+          "render_type": null,
+          "request_definition": null
+        },
+        "records": {
+          "value": 10,
+          "doc": null,
+          "label": "records",
+          "dataType": "integer",
+          "required": false,
+          "supportVar": true,
+          "series": false,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 2,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": "STATIC",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": 0,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "outputProperty": {
+        "out_ds": {
+          "value": "",
+          "doc": null,
+          "label": null,
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 0,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": null,
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "createdBy": "Ayan Basak",
+      "createdOn": "Fri Mar 05 13:29:57 UTC 2021",
+      "lastModifiedBy": "Ayan Basak",
+      "lastModifiedOn": "Tue Mar 09 04:42:34 UTC 2021",
+      "updateAvailable": false,
+      "comments": null,
+      "inputOptions": [],
+      "outputOptions": []
+    },
+    {
+      "id": "25722ab8-4c4a-2197-dee0-3af3b8e3a2df",
+      "name": "PrintReplaceFreq__1",
+      "versionHash": "4795e7f6-afbd-4232-8189-ea8e7e73318f",
+      "artifactBlockName": "PrintReplaceFreq",
+      "artifactBundleName": "project.mix_series_parallel",
+      "artifactBundleType": "PROJECT",
+      "className": "PrintReplaceFreq",
+      "executionType": "ContainerExecutor",
+      "executionTypeSwitchable": false,
+      "resourceRequirement": {
+        "cores": 1,
+        "memory": 25000,
+        "useGpu": false,
+        "gpu": null,
+        "runEnv": null,
+        "clusterConfiguration": null
+      },
+      "category": null,
+      "inputProperty": {
+        "s_in_ds": {
+          "value": null,
+          "doc": null,
+          "label": "s_in_ds",
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "SOCKET",
+          "order": 1,
+          "hidden": false,
+          "sourceId": "c4d4df5d-b5d9-2464-ba9a-cafee646ac33",
+          "sourceName": "out_ds",
+          "inferredType": "BLOCK",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        },
+        "l_in_ds": {
+          "value": null,
+          "doc": null,
+          "label": "l_in_ds",
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 2,
+          "hidden": false,
+          "sourceId": "645ba665-7b28-dff4-39bf-8a7c1543aebb",
+          "sourceName": "out_ds",
+          "inferredType": "BLOCK",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "outputProperty": {
+        "s_out_ds": {
+          "value": "",
+          "doc": null,
+          "label": null,
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 0,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": null,
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        },
+        "l_out_ds": {
+          "value": "",
+          "doc": null,
+          "label": null,
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "SOCKET",
+          "order": 1,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": null,
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "createdBy": "Ayan Basak",
+      "createdOn": "Mon Mar 08 13:42:38 UTC 2021",
+      "lastModifiedBy": "Ayan Basak",
+      "lastModifiedOn": "Mon Mar 08 13:42:38 UTC 2021",
+      "updateAvailable": true,
+      "comments": null,
+      "inputOptions": [],
+      "outputOptions": []
+    },
+    {
+      "id": "67f399c1-50cb-d21b-c568-4b7b27cbbc00",
+      "name": "DeReplaceChar__1",
+      "versionHash": "750de67f-f6e3-47d2-bd94-d6d06705979d",
+      "artifactBlockName": "DeReplaceChar",
+      "artifactBundleName": "project.mix_series_parallel",
+      "artifactBundleType": "PROJECT",
+      "className": "DeReplaceChar",
+      "executionType": "ContainerExecutor",
+      "executionTypeSwitchable": false,
+      "resourceRequirement": {
+        "cores": 1,
+        "memory": 25000,
+        "useGpu": false,
+        "gpu": null,
+        "runEnv": null,
+        "clusterConfiguration": null
+      },
+      "category": null,
+      "inputProperty": {
+        "in_ds": {
+          "value": null,
+          "doc": null,
+          "label": "in_ds",
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 1,
+          "hidden": false,
+          "sourceId": "25722ab8-4c4a-2197-dee0-3af3b8e3a2df",
+          "sourceName": "s_out_ds",
+          "inferredType": "BLOCK",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "outputProperty": {
+        "out_ds": {
+          "value": "",
+          "doc": null,
+          "label": null,
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "SOCKET",
+          "order": 0,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": null,
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "createdBy": "Ayan Basak",
+      "createdOn": "Mon Mar 08 13:42:38 UTC 2021",
+      "lastModifiedBy": "Ayan Basak",
+      "lastModifiedOn": "Mon Mar 08 13:42:38 UTC 2021",
+      "updateAvailable": true,
+      "comments": null,
+      "inputOptions": [],
+      "outputOptions": []
+    },
+    {
+      "id": "c424ebc9-1f11-3b47-3d77-3764051c4547",
+      "name": "DeReplaceChar__2",
+      "versionHash": "750de67f-f6e3-47d2-bd94-d6d06705979d",
+      "artifactBlockName": "DeReplaceChar",
+      "artifactBundleName": "project.mix_series_parallel",
+      "artifactBundleType": "PROJECT",
+      "className": "DeReplaceChar",
+      "executionType": "ContainerExecutor",
+      "executionTypeSwitchable": false,
+      "resourceRequirement": {
+        "cores": 1,
+        "memory": 25000,
+        "useGpu": false,
+        "gpu": null,
+        "runEnv": null,
+        "clusterConfiguration": null
+      },
+      "category": null,
+      "inputProperty": {
+        "in_ds": {
+          "value": null,
+          "doc": null,
+          "label": "in_ds",
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "SOCKET",
+          "order": 1,
+          "hidden": false,
+          "sourceId": "25722ab8-4c4a-2197-dee0-3af3b8e3a2df",
+          "sourceName": "l_out_ds",
+          "inferredType": "BLOCK",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "outputProperty": {
+        "out_ds": {
+          "value": "",
+          "doc": null,
+          "label": null,
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "SOCKET",
+          "order": 0,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": null,
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "createdBy": "Ayan Basak",
+      "createdOn": "Mon Mar 08 13:42:38 UTC 2021",
+      "lastModifiedBy": "Ayan Basak",
+      "lastModifiedOn": "Mon Mar 08 13:42:38 UTC 2021",
+      "updateAvailable": true,
+      "comments": null,
+      "inputOptions": [],
+      "outputOptions": []
+    },
+    {
+      "id": "645ba665-7b28-dff4-39bf-8a7c1543aebb",
+      "name": "ReplaceChar__2",
+      "versionHash": "d5b60257-cbf2-4230-90e9-a32b41cbeecc",
+      "artifactBlockName": "ReplaceChar",
+      "artifactBundleName": "project.mix_series_parallel",
+      "artifactBundleType": "PROJECT",
+      "className": "ReplaceChar",
+      "executionType": "ContainerExecutor",
+      "executionTypeSwitchable": false,
+      "resourceRequirement": {
+        "cores": 1,
+        "memory": 25000,
+        "useGpu": false,
+        "gpu": null,
+        "runEnv": null,
+        "clusterConfiguration": null
+      },
+      "category": null,
+      "inputProperty": {
+        "in_ds": {
+          "value": null,
+          "doc": null,
+          "label": "in_ds",
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 1,
+          "hidden": false,
+          "sourceId": "8e6bdf05-7682-36e8-2258-ff0e46dcb115",
+          "sourceName": "out_ds",
+          "inferredType": "BLOCK",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "outputProperty": {
+        "out_ds": {
+          "value": "",
+          "doc": null,
+          "label": null,
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 0,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": null,
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "createdBy": "Ayan Basak",
+      "createdOn": "Mon Mar 08 13:42:38 UTC 2021",
+      "lastModifiedBy": "Ayan Basak",
+      "lastModifiedOn": "Mon Mar 08 13:42:38 UTC 2021",
+      "updateAvailable": true,
+      "comments": null,
+      "inputOptions": [],
+      "outputOptions": []
+    },
+    {
+      "id": "6e5f83de-98c5-5325-2977-aa158c359378",
+      "name": "STDIn_series__1",
+      "versionHash": "524c413a-4676-458f-9e3e-7746d159df9a",
+      "artifactBlockName": "STDIn_series",
+      "artifactBundleName": "project.series_socket",
+      "artifactBundleType": "PROJECT",
+      "className": "STDIn_series",
+      "executionType": "ContainerExecutor",
+      "executionTypeSwitchable": false,
+      "resourceRequirement": {
+        "cores": 1,
+        "memory": 25000,
+        "useGpu": false,
+        "gpu": null,
+        "runEnv": null,
+        "clusterConfiguration": null
+      },
+      "category": null,
+      "inputProperty": {
+        "filename": {
+          "value": "sdk_testbench/input_data/file10MB.txt",
+          "doc": null,
+          "label": "filename",
+          "dataType": "string",
+          "required": false,
+          "supportVar": true,
+          "series": false,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 1,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": "STATIC",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": "",
+          "render_type": null,
+          "request_definition": null
+        },
+        "records": {
+          "value": 10,
+          "doc": null,
+          "label": "records",
+          "dataType": "integer",
+          "required": false,
+          "supportVar": true,
+          "series": false,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 2,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": "STATIC",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": 0,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "outputProperty": {
+        "out_ds": {
+          "value": "",
+          "doc": null,
+          "label": null,
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 0,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": null,
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "createdBy": "Ayan Basak",
+      "createdOn": "Fri Mar 05 13:29:57 UTC 2021",
+      "lastModifiedBy": "Ayan Basak",
+      "lastModifiedOn": "Tue Mar 09 04:42:34 UTC 2021",
+      "updateAvailable": false,
+      "comments": null,
+      "inputOptions": [],
+      "outputOptions": []
+    },
+    {
+      "id": "28613d66-d6fb-cdc6-0d87-7c57479bd117",
+      "name": "STDOut__1",
+      "versionHash": "2e4f61da-c6d7-403f-a99c-e3205cf6f7db",
+      "artifactBlockName": "STDOut",
+      "artifactBundleName": "project.stdout_mix_series_parallel",
+      "artifactBundleType": "PROJECT",
+      "className": "STDOut",
+      "executionType": "ContainerExecutor",
+      "executionTypeSwitchable": false,
+      "resourceRequirement": {
+        "cores": 1,
+        "memory": 25000,
+        "useGpu": false,
+        "gpu": null,
+        "runEnv": null,
+        "clusterConfiguration": null
+      },
+      "category": null,
+      "inputProperty": {
+        "in_ds": {
+          "value": null,
+          "doc": null,
+          "label": "in_ds",
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "SOCKET",
+          "order": 1,
+          "hidden": false,
+          "sourceId": "67f399c1-50cb-d21b-c568-4b7b27cbbc00",
+          "sourceName": "out_ds",
+          "inferredType": "BLOCK",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        },
+        "out_filename": {
+          "value": "sdk_testbench/output_data/s_tc_mix_series_parallel.txt",
+          "doc": null,
+          "label": "out_filename",
+          "dataType": "string",
+          "required": false,
+          "supportVar": true,
+          "series": false,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 2,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": "STATIC",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": "",
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "outputProperty": {},
+      "createdBy": "Ayan Basak",
+      "createdOn": "Tue Mar 09 06:58:09 UTC 2021",
+      "lastModifiedBy": "Ayan Basak",
+      "lastModifiedOn": "Tue Mar 09 06:58:09 UTC 2021",
+      "updateAvailable": true,
+      "comments": null,
+      "inputOptions": [],
+      "outputOptions": []
+    },
+    {
+      "id": "c4d4df5d-b5d9-2464-ba9a-cafee646ac33",
+      "name": "ReplaceChar__1",
+      "versionHash": "d5b60257-cbf2-4230-90e9-a32b41cbeecc",
+      "artifactBlockName": "ReplaceChar",
+      "artifactBundleName": "project.mix_series_parallel",
+      "artifactBundleType": "PROJECT",
+      "className": "ReplaceChar",
+      "executionType": "ContainerExecutor",
+      "executionTypeSwitchable": false,
+      "resourceRequirement": {
+        "cores": 1,
+        "memory": 25000,
+        "useGpu": false,
+        "gpu": null,
+        "runEnv": null,
+        "clusterConfiguration": null
+      },
+      "category": null,
+      "inputProperty": {
+        "in_ds": {
+          "value": null,
+          "doc": null,
+          "label": "in_ds",
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 1,
+          "hidden": false,
+          "sourceId": "6e5f83de-98c5-5325-2977-aa158c359378",
+          "sourceName": "out_ds",
+          "inferredType": "BLOCK",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "outputProperty": {
+        "out_ds": {
+          "value": "",
+          "doc": null,
+          "label": null,
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "SOCKET",
+          "order": 0,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": null,
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "createdBy": "Ayan Basak",
+      "createdOn": "Mon Mar 08 13:42:38 UTC 2021",
+      "lastModifiedBy": "Ayan Basak",
+      "lastModifiedOn": "Mon Mar 08 13:42:38 UTC 2021",
+      "updateAvailable": true,
+      "comments": null,
+      "inputOptions": [],
+      "outputOptions": []
+    },
+    {
+      "id": "d204025a-8fcd-12e7-0d40-8d4c61a06dc6",
+      "name": "STDOut__2",
+      "versionHash": "2e4f61da-c6d7-403f-a99c-e3205cf6f7db",
+      "artifactBlockName": "STDOut",
+      "artifactBundleName": "project.stdout_mix_series_parallel",
+      "artifactBundleType": "PROJECT",
+      "className": "STDOut",
+      "executionType": "ContainerExecutor",
+      "executionTypeSwitchable": false,
+      "resourceRequirement": {
+        "cores": 1,
+        "memory": 25000,
+        "useGpu": false,
+        "gpu": null,
+        "runEnv": null,
+        "clusterConfiguration": null
+      },
+      "category": null,
+      "inputProperty": {
+        "in_ds": {
+          "value": null,
+          "doc": null,
+          "label": "in_ds",
+          "dataType": "Any",
+          "required": false,
+          "supportVar": true,
+          "series": true,
+          "adapter": null,
+          "transport": "SOCKET",
+          "order": 1,
+          "hidden": false,
+          "sourceId": "c424ebc9-1f11-3b47-3d77-3764051c4547",
+          "sourceName": "out_ds",
+          "inferredType": "BLOCK",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": null,
+          "render_type": null,
+          "request_definition": null
+        },
+        "out_filename": {
+          "value": "sdk_testbench/output_data/l_tc_mix_series_parallel.txt",
+          "doc": null,
+          "label": "out_filename",
+          "dataType": "string",
+          "required": false,
+          "supportVar": true,
+          "series": false,
+          "adapter": null,
+          "transport": "MEMORY",
+          "order": 2,
+          "hidden": false,
+          "sourceId": null,
+          "sourceName": null,
+          "inferredType": "STATIC",
+          "rightpaneRenderBlueprint": null,
+          "optionalParameter": false,
+          "targetId": null,
+          "targetName": null,
+          "variable": false,
+          "default": "",
+          "render_type": null,
+          "request_definition": null
+        }
+      },
+      "outputProperty": {},
+      "createdBy": "Ayan Basak",
+      "createdOn": "Tue Mar 09 06:58:09 UTC 2021",
+      "lastModifiedBy": "Ayan Basak",
+      "lastModifiedOn": "Tue Mar 09 06:58:09 UTC 2021",
+      "updateAvailable": true,
+      "comments": null,
+      "inputOptions": [],
+      "outputOptions": []
+    }
+  ],
+  "connections": [
+    {
+      "id": "513a565f-230c-6bfb-6fa9-c0aabe150025",
+      "sourceBlockId": "6e5f83de-98c5-5325-2977-aa158c359378",
+      "targetBlockId": "c4d4df5d-b5d9-2464-ba9a-cafee646ac33",
+      "sourceOutput": {
+        "name": "out_ds",
+        "dynamic": false
+      },
+      "targetInput": {
+        "name": "in_ds",
+        "dynamic": true
+      },
+      "transport": "MEMORY",
+      "pipelineIO": null
+    },
+    {
+      "id": "e1addceb-50b1-5abf-190e-75dab73ed2ce",
+      "sourceBlockId": "8e6bdf05-7682-36e8-2258-ff0e46dcb115",
+      "targetBlockId": "645ba665-7b28-dff4-39bf-8a7c1543aebb",
+      "sourceOutput": {
+        "name": "out_ds",
+        "dynamic": false
+      },
+      "targetInput": {
+        "name": "in_ds",
+        "dynamic": true
+      },
+      "transport": "MEMORY",
+      "pipelineIO": null
+    },
+    {
+      "id": "1571d91f-46ee-3671-21f8-dbca90fd955b",
+      "sourceBlockId": "c4d4df5d-b5d9-2464-ba9a-cafee646ac33",
+      "targetBlockId": "25722ab8-4c4a-2197-dee0-3af3b8e3a2df",
+      "sourceOutput": {
+        "name": "out_ds",
+        "dynamic": false
+      },
+      "targetInput": {
+        "name": "s_in_ds",
+        "dynamic": true
+      },
+      "transport": "SOCKET",
+      "pipelineIO": null
+    },
+    {
+      "id": "f6afe0d5-9959-8310-dc74-f168e4cb3735",
+      "sourceBlockId": "645ba665-7b28-dff4-39bf-8a7c1543aebb",
+      "targetBlockId": "25722ab8-4c4a-2197-dee0-3af3b8e3a2df",
+      "sourceOutput": {
+        "name": "out_ds",
+        "dynamic": false
+      },
+      "targetInput": {
+        "name": "l_in_ds",
+        "dynamic": true
+      },
+      "transport": "MEMORY",
+      "pipelineIO": null
+    },
+    {
+      "id": "3fadb594-e6e8-3e72-1da4-5f147cf14215",
+      "sourceBlockId": "25722ab8-4c4a-2197-dee0-3af3b8e3a2df",
+      "targetBlockId": "67f399c1-50cb-d21b-c568-4b7b27cbbc00",
+      "sourceOutput": {
+        "name": "s_out_ds",
+        "dynamic": false
+      },
+      "targetInput": {
+        "name": "in_ds",
+        "dynamic": true
+      },
+      "transport": "MEMORY",
+      "pipelineIO": null
+    },
+    {
+      "id": "22725de9-b5de-a363-4f4b-8e53cc250660",
+      "sourceBlockId": "25722ab8-4c4a-2197-dee0-3af3b8e3a2df",
+      "targetBlockId": "c424ebc9-1f11-3b47-3d77-3764051c4547",
+      "sourceOutput": {
+        "name": "l_out_ds",
+        "dynamic": false
+      },
+      "targetInput": {
+        "name": "in_ds",
+        "dynamic": true
+      },
+      "transport": "SOCKET",
+      "pipelineIO": null
+    },
+    {
+      "id": "45f4d0bd-cf92-a521-b946-053fc53b6b1d",
+      "sourceBlockId": "67f399c1-50cb-d21b-c568-4b7b27cbbc00",
+      "targetBlockId": "28613d66-d6fb-cdc6-0d87-7c57479bd117",
+      "sourceOutput": {
+        "name": "out_ds",
+        "dynamic": false
+      },
+      "targetInput": {
+        "name": "in_ds",
+        "dynamic": true
+      },
+      "transport": "SOCKET",
+      "pipelineIO": null
+    },
+    {
+      "id": "2fb65de7-a623-5dc3-d7a3-5f92bab8e010",
+      "sourceBlockId": "c424ebc9-1f11-3b47-3d77-3764051c4547",
+      "targetBlockId": "d204025a-8fcd-12e7-0d40-8d4c61a06dc6",
+      "sourceOutput": {
+        "name": "out_ds",
+        "dynamic": false
+      },
+      "targetInput": {
+        "name": "in_ds",
+        "dynamic": true
+      },
+      "transport": "SOCKET",
+      "pipelineIO": null
+    }
+  ],
+  "resourceRequirement": {
+    "cores": 1,
+    "memory": 20000,
+    "useGpu": false,
+    "gpu": null,
+    "runEnv": null,
+    "clusterConfiguration": null
+  },
+  "blockGroups": null,
+  "pipelineVariableList": null,
+  "description": "",
+  "validationInfo": {
+    "messages": {
+      "NODE": {
+        "25722ab8-4c4a-2197-dee0-3af3b8e3a2df": [
+          {
+            "code": null,
+            "msg": "The block artifact is updated by the owner and a version update is available",
+            "type": "WARNING",
+            "data": null
+          }
+        ],
+        "67f399c1-50cb-d21b-c568-4b7b27cbbc00": [
+          {
+            "code": null,
+            "msg": "The block artifact is updated by the owner and a version update is available",
+            "type": "WARNING",
+            "data": null
+          }
+        ],
+        "c424ebc9-1f11-3b47-3d77-3764051c4547": [
+          {
+            "code": null,
+            "msg": "The block artifact is updated by the owner and a version update is available",
+            "type": "WARNING",
+            "data": null
+          }
+        ],
+        "645ba665-7b28-dff4-39bf-8a7c1543aebb": [
+          {
+            "code": null,
+            "msg": "The block artifact is updated by the owner and a version update is available",
+            "type": "WARNING",
+            "data": null
+          }
+        ],
+        "28613d66-d6fb-cdc6-0d87-7c57479bd117": [
+          {
+            "code": null,
+            "msg": "The block artifact is updated by the owner and a version update is available",
+            "type": "WARNING",
+            "data": null
+          }
+        ],
+        "c4d4df5d-b5d9-2464-ba9a-cafee646ac33": [
+          {
+            "code": null,
+            "msg": "The block artifact is updated by the owner and a version update is available",
+            "type": "WARNING",
+            "data": null
+          }
+        ],
+        "d204025a-8fcd-12e7-0d40-8d4c61a06dc6": [
+          {
+            "code": null,
+            "msg": "The block artifact is updated by the owner and a version update is available",
+            "type": "WARNING",
+            "data": null
+          }
+        ]
+      }
+    },
+    "valid": true
+  },
+  "uiData": "{\"blocks\":{\"8e6bdf05-7682-36e8-2258-ff0e46dcb115\":{\"position\":{\"x\":35,\"y\":370}},\"25722ab8-4c4a-2197-dee0-3af3b8e3a2df\":{\"position\":{\"x\":616,\"y\":229}},\"67f399c1-50cb-d21b-c568-4b7b27cbbc00\":{\"position\":{\"x\":877,\"y\":197}},\"c424ebc9-1f11-3b47-3d77-3764051c4547\":{\"position\":{\"x\":875,\"y\":350}},\"645ba665-7b28-dff4-39bf-8a7c1543aebb\":{\"position\":{\"x\":358,\"y\":375}},\"6e5f83de-98c5-5325-2977-aa158c359378\":{\"position\":{\"x\":69,\"y\":106}},\"28613d66-d6fb-cdc6-0d87-7c57479bd117\":{\"position\":{\"x\":1179,\"y\":182}},\"c4d4df5d-b5d9-2464-ba9a-cafee646ac33\":{\"position\":{\"x\":368,\"y\":119}},\"d204025a-8fcd-12e7-0d40-8d4c61a06dc6\":{\"position\":{\"x\":1184,\"y\":353}}},\"isBlockListPinned\":true}",
+  "createdBy": "ab3faaf2-fe6f-429d-9a06-5f807d7911e4",
+  "createdOn": "Tue Mar 09 06:50:33 UTC 2021",
+  "lastModifiedBy": "ab3faaf2-fe6f-429d-9a06-5f807d7911e4",
+  "lastModifiedOn": "Fri Mar 26 13:30:47 UTC 2021",
+  "variableUiData": "{}"
+}

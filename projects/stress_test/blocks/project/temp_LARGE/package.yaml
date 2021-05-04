@@ -1,0 +1,174 @@
+bundle_name: temp_LARGE
+description: null
+version: 0.0.1
+image: null
+libraries: null
+system_dependencies: null
+environment: null
+commands: null
+blocks:
+- name: STDIn
+  file_name: blocks
+  class_name: STDIn
+  label: STDIn
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: filename
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs:
+  - name: a
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series: false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: b
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series: false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: c
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series: false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: d
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series: false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: e
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series: false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: f
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series: false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: g
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series: false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: h
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series: false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: i
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series: false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: arr1
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series: false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  - name: arr2
+    dataFlowType: atomic
+    dataType: Any
+    doc: null
+    label: null
+    transport:
+      is_series: false
+      name: null
+      topic: null
+      sender_port: null
+      receiver_port: null
+      queue_size: 0
+      has_initialized: false
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: temp_LARGE
+category: StdIn_Large

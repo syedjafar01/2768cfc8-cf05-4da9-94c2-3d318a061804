@@ -1,0 +1,207 @@
+{
+  "id": "1e4cc612-7c2b-11eb-affd-9801a79adedd",
+  "name": "Pipeline_1",
+  "description": "",
+  "blocks": [
+    {
+      "name": "PrintRes_1",
+      "class_name": "PrintRes",
+      "id": "83b0e2b8-98ae-47b2-8b83-4d6fadf7c326",
+      "process_id": null,
+      "code": null,
+      "executionType": "ProcessExecutor",
+      "isPublishedBlock": false,
+      "dependencies": [],
+      "resourceRequirement": {},
+      "inputProperty": {
+        "res_input": {
+          "label": "res_input",
+          "doc": null,
+          "default": 0,
+          "required": false,
+          "series": false,
+          "islist": false,
+          "isdict": false,
+          "adapter": "eJxrYJmqxgABPYJFiVX5RXppOfnlern5Kak5xVN6ePLy8wviE1MSC0pSi6ZMnqIHAF/+ELQ=",
+          "validator": "eJxrYJmqwQABPYJFiVX5RXppOfnlern5Kak5xVN6+PLy8wviyxJzMlMSS/KLpkyeogcAg2wRnQ==",
+          "value": null,
+          "render_type": null,
+          "source_id": "727d1a99-3cdb-48d1-8e5e-3047723a4821",
+          "source_name": "sum_res",
+          "inferred_type": "BLOCK",
+          "dataType": "integer",
+          "connected": "",
+          "transport": "",
+          "dataFlowType": "atomic",
+          "supportVar": "",
+          "id": "fc8f5ae3-fc68-4885-a3fd-574061da02d6"
+        }
+      },
+      "outputProperty": {},
+      "artifact_id": null,
+      "services": {},
+      "bundle_source": "",
+      "artifactBlockName": "PrintRes_1",
+      "categoryId": "",
+      "version": "",
+      "className": "PrintRes",
+      "artifactBundleName": "simple_blocks",
+      "artifactBundleType": "PROJECT"
+    },
+    {
+      "name": "SumNumbers_1",
+      "class_name": "SumNumbers",
+      "id": "727d1a99-3cdb-48d1-8e5e-3047723a4821",
+      "process_id": null,
+      "code": null,
+      "executionType": "ProcessExecutor",
+      "isPublishedBlock": false,
+      "dependencies": [],
+      "resourceRequirement": {},
+      "inputProperty": {
+        "input_numbers": {
+          "label": "input_numbers",
+          "doc": null,
+          "default": 0,
+          "required": false,
+          "series": true,
+          "islist": false,
+          "isdict": false,
+          "adapter": "eJxrYJmqxgABPYJFiVX5RXppOfnlern5Kak5xVN6ePLy8wviE1MSC0pSi6ZMnqIHAF/+ELQ=",
+          "validator": "eJxrYJmqwQABPYJFiVX5RXppOfnlern5Kak5xVN6+PLy8wviyxJzMlMSS/KLpkyeogcAg2wRnQ==",
+          "value": null,
+          "render_type": null,
+          "source_id": "19a2b816-ee0c-4b4d-8e20-388f0a770d62",
+          "source_name": "random_number_list",
+          "inferred_type": "BLOCK",
+          "dataType": "integer",
+          "connected": "",
+          "transport": "",
+          "dataFlowType": "series",
+          "supportVar": "",
+          "id": "e18ad5ea-0496-41fe-86f0-958ccc56d65b"
+        }
+      },
+      "outputProperty": {
+        "sum_res": {
+          "label": null,
+          "doc": null,
+          "series": false,
+          "adapter": "eJxrYJmqxgABPYJFiVX5RXppOfnlern5Kak5xVN6ePLy8wviE1MSC0pSi6ZMnqIHAF/+ELQ=",
+          "transport": "KAFKA",
+          "dataFlowType": "atomic",
+          "id": "87a6f35a-3661-4faa-8498-445bb095eefa"
+        }
+      },
+      "artifact_id": null,
+      "services": {},
+      "bundle_source": "",
+      "artifactBlockName": "SumNumbers_1",
+      "categoryId": "",
+      "version": "",
+      "className": "SumNumbers",
+      "artifactBundleName": "simple_blocks",
+      "artifactBundleType": "PROJECT"
+    },
+    {
+      "name": "RandomNoGen_1",
+      "class_name": "RandomNoGen",
+      "id": "19a2b816-ee0c-4b4d-8e20-388f0a770d62",
+      "process_id": null,
+      "code": null,
+      "executionType": "ProcessExecutor",
+      "isPublishedBlock": false,
+      "dependencies": [],
+      "resourceRequirement": {},
+      "inputProperty": {},
+      "outputProperty": {
+        "random_number_list": {
+          "label": null,
+          "doc": null,
+          "series": true,
+          "adapter": "eJxrYJmqxgABPYJFiVX5RXppOfnlern5Kak5xVN6ePLy8wviE1MSC0pSi6ZMnqIHAF/+ELQ=",
+          "transport": "KAFKA",
+          "dataFlowType": "series",
+          "id": "1b91635d-2a90-4501-a5b5-61e1c54ab717"
+        }
+      },
+      "artifact_id": null,
+      "services": {},
+      "bundle_source": "",
+      "artifactBlockName": "RandomNoGen_1",
+      "categoryId": "",
+      "version": "",
+      "className": "RandomNoGen",
+      "artifactBundleName": "simple_blocks",
+      "artifactBundleType": "PROJECT"
+    }
+  ],
+  "services": [],
+  "connections": [
+    {
+      "id": "a32e2231-039d-4baa-bb8b-dc9a734afca0",
+      "transport": "KAFKA",
+      "sourceBlockId": "727d1a99-3cdb-48d1-8e5e-3047723a4821",
+      "targetBlockId": "83b0e2b8-98ae-47b2-8b83-4d6fadf7c326",
+      "sourceOutput": {
+        "name": "sum_res",
+        "dynamic": true
+      },
+      "targetInput": {
+        "name": "res_input",
+        "dynamic": true
+      }
+    },
+    {
+      "id": "2c2acc38-490a-4ef7-b354-d7b7b43d9778",
+      "transport": "KAFKA",
+      "sourceBlockId": "19a2b816-ee0c-4b4d-8e20-388f0a770d62",
+      "targetBlockId": "727d1a99-3cdb-48d1-8e5e-3047723a4821",
+      "sourceOutput": {
+        "name": "random_number_list",
+        "dynamic": true
+      },
+      "targetInput": {
+        "name": "input_numbers",
+        "dynamic": true
+      }
+    }
+  ],
+  "resourceRequirement": {
+    "cores": 1,
+    "memory": 1024,
+    "gpu": 0,
+    "useGpu": false,
+    "useGpuIfAvailable": false,
+    "clusterConfiguration": {},
+    "runEnv": "PYTHON"
+  },
+  "engineId": "",
+  "projectId": "",
+  "pipelineVariableList": [],
+  "systemModel": false,
+  "runInitiatedFrom": "JUPYTER",
+  "processList": null,
+  "processInfo": {},
+  "pipelineMeta": {
+    "name": "Pipeline_1",
+    "blocks": {
+      "83b0e2b8-98ae-47b2-8b83-4d6fadf7c326": {
+        "id": "83b0e2b8-98ae-47b2-8b83-4d6fadf7c326",
+        "name": "PrintRes_1",
+        "meta": null
+      },
+      "727d1a99-3cdb-48d1-8e5e-3047723a4821": {
+        "id": "727d1a99-3cdb-48d1-8e5e-3047723a4821",
+        "name": "SumNumbers_1",
+        "meta": null
+      },
+      "19a2b816-ee0c-4b4d-8e20-388f0a770d62": {
+        "id": "19a2b816-ee0c-4b4d-8e20-388f0a770d62",
+        "name": "RandomNoGen_1",
+        "meta": null
+      }
+    },
+    "services": {}
+  }
+}

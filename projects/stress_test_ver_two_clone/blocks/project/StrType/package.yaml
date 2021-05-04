@@ -1,0 +1,31 @@
+bundle_name: StrType
+description: null
+version: 0.0.1
+image: null
+libraries: null
+system_dependencies: null
+environment: null
+commands: null
+blocks:
+- name: Float
+  file_name: string
+  class_name: StringType
+  label: Float
+  description: ''
+  tags: []
+  libraries: []
+  executors:
+    name: ProcessExecutor
+  inputs:
+  - name: a
+    dataFlowType: atomic
+    dataType: string
+    render_type: null
+    default: ''
+    doc: null
+    label: null
+  outputs: []
+  defaultExecutionMode: ProcessExecutor
+  source:
+    module_name: StrType
+category: String
